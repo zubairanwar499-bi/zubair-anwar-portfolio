@@ -57,20 +57,16 @@ export const About: React.FC = () => {
           <div className="lg:col-span-4">
             <div className="p-6 rounded-3xl bg-slate-50 dark:bg-navy-900 border border-slate-200/80 dark:border-navy-800 shadow-md space-y-6">
               
-              {/* Profile Avatar / Analytics Icon Badge */}
-              <div className="relative mx-auto w-36 h-36 rounded-2xl bg-gradient-to-tr from-blue-600 via-cyan-500 to-emerald-400 p-1 shadow-xl shadow-cyan-500/20">
-                <div className="w-full h-full rounded-[14px] bg-slate-900 flex flex-col items-center justify-center text-white p-4 text-center">
-                  <div className="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
-                    ZA
-                  </div>
-                  <span className="text-[11px] font-mono text-cyan-300 font-medium mt-1">
-                    {personalInfo.name}
-                  </span>
-                  <span className="text-[9px] text-slate-400 font-mono mt-0.5">
-                    Data Analyst
-                  </span>
+              {/* Profile Avatar / Photo */}
+              <div className="relative mx-auto w-44 h-44 rounded-3xl bg-gradient-to-tr from-blue-600 via-cyan-500 to-emerald-400 p-1 shadow-2xl shadow-cyan-500/25 rainbow-glow">
+                <div className="w-full h-full rounded-[22px] overflow-hidden bg-slate-900">
+                  <img
+                    src={personalInfo.avatarUrl || '/assets/profile.png'}
+                    alt={personalInfo.name}
+                    className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
-                <div className="absolute -bottom-2 -right-2 bg-emerald-500 text-white p-1.5 rounded-full ring-4 ring-white dark:ring-navy-900 shadow">
+                <div className="absolute -bottom-2 -right-2 bg-emerald-500 text-white p-2 rounded-2xl ring-4 ring-white dark:ring-navy-900 shadow-lg flex items-center justify-center">
                   <UserCheck className="w-4 h-4" />
                 </div>
               </div>

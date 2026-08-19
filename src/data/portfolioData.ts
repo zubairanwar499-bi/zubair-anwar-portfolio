@@ -43,6 +43,7 @@ export interface Project {
       dataPoints: { name: string; val1: number; val2?: number; category?: string }[];
     }[];
   };
+  image?: string;
   keyInsights: {
     title: string;
     description: string;
@@ -116,6 +117,7 @@ export interface PortfolioData {
     linkedin: string;
     linkedinDisplay: string;
     github: string;
+    avatarUrl: string;
     location: string;
     availability: string;
     coreTools: string[];
@@ -142,6 +144,7 @@ export const portfolioData: PortfolioData = {
     linkedin: "https://www.linkedin.com/in/zubair-anwar-56762026a",
     linkedinDisplay: "linkedin.com/in/zubair-anwar-56762026a",
     github: "https://github.com/zubairanwar499-bi",
+    avatarUrl: "/assets/profile.png",
     location: "Global Remote / Worldwide",
     availability: "Available for freelance projects, consulting, and full-time opportunities",
     coreTools: ["Power BI", "Microsoft Fabric", "SQL", "DAX", "Power Query", "Excel", "Python", "Azure"],
@@ -225,6 +228,7 @@ export const portfolioData: PortfolioData = {
       category: "Business Intelligence",
       categorySlug: "bi",
       thumbnailGradient: "from-blue-600 to-cyan-500",
+      image: "/assets/dashboards/dashboard-sales.jpg",
       technologies: ["Power BI", "Microsoft Fabric", "SQL", "DAX", "Power Query"],
       businessImpactSummary: "Eliminated 12-day month-end reporting lag and identified a 22% discounting leak across regional distributors.",
       metrics: [
@@ -387,6 +391,7 @@ LOOKUPVALUE(Dim_Security[Role], Dim_Security[Email], USERPRINCIPALNAME()) = "Adm
       category: "HR Analytics",
       categorySlug: "hr",
       thumbnailGradient: "from-purple-600 to-indigo-500",
+      image: "/assets/dashboards/dashboard-operations.png",
       technologies: ["Power BI", "SQL", "DAX", "Power Query", "Dynamic RLS"],
       businessImpactSummary: "Reduced annual department turnover by 14% and surfaced critical compensation anomalies among mid-career engineers.",
       metrics: [
@@ -544,6 +549,7 @@ AVERAGEX(
       category: "Finance Analytics",
       categorySlug: "finance",
       thumbnailGradient: "from-emerald-600 to-teal-500",
+      image: "/assets/dashboards/dashboard-finance.png",
       technologies: ["SQL", "Power BI", "Excel", "DAX", "Financial Modeling"],
       businessImpactSummary: "Reduced Days Sales Outstanding (DSO) by 9 days and saved 18 hours per week across the corporate FP&A team.",
       metrics: [
@@ -704,6 +710,7 @@ RETURN
       category: "Performance Management",
       categorySlug: "performance",
       thumbnailGradient: "from-amber-500 to-orange-600",
+      image: "/assets/dashboards/dashboard-sales.jpg",
       technologies: ["SQL", "Python", "Power BI", "Data Engineering", "Azure"],
       businessImpactSummary: "Reduced warehouse stockout incidents by 32% while trimming $180K in dead stock carrying costs.",
       metrics: [
@@ -858,6 +865,7 @@ RETURN
       category: "Microsoft Fabric",
       categorySlug: "fabric",
       thumbnailGradient: "from-cyan-600 to-blue-700",
+      image: "/assets/dashboards/dashboard-operations.png",
       technologies: ["Microsoft Fabric", "PySpark", "Power BI", "DAX", "Lakehouse"],
       businessImpactSummary: "Identified high-retention onboarding feature triggers that lifted 30-day user activation by 19% and maintained 114% NRR.",
       metrics: [
@@ -1014,6 +1022,7 @@ RETURN
       category: "SQL Analytics",
       categorySlug: "sql",
       thumbnailGradient: "from-teal-600 to-emerald-700",
+      image: "/assets/dashboards/dashboard-finance.png",
       technologies: ["SQL Server", "Power BI", "Data Modeling", "ETL", "Healthcare Analytics"],
       businessImpactSummary: "Reduced average patient wait time by 43% (42 mins to 24 mins) and optimized clinical room utilization by 18%.",
       metrics: [

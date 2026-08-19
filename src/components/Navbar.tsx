@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, BarChart2, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { portfolioData } from '../data/portfolioData';
 
@@ -56,17 +56,21 @@ export const Navbar: React.FC = () => {
           {/* Logo / Brand */}
           <a
             href="#home"
-            className="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-cyan-500 rounded-lg p-1"
+            className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-cyan-500 rounded-xl p-1"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-200">
-              <BarChart2 className="w-5 h-5 text-white" />
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden ring-2 ring-cyan-500/50 shadow-md shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-200">
+              <img
+                src={portfolioData.personalInfo.avatarUrl || '/assets/profile.png'}
+                alt={portfolioData.personalInfo.name}
+                className="w-full h-full object-cover object-top"
+              />
             </div>
             <div>
-              <div className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-white tracking-tight text-lg leading-tight">
+              <div className="flex items-center gap-1.5 font-extrabold text-slate-900 dark:text-white tracking-tight text-lg leading-tight">
                 <span>{portfolioData.personalInfo.name}</span>
-                <span className="inline-block w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                <span className="inline-block w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#00f0ff]"></span>
               </div>
-              <span className="text-[11px] font-mono font-medium text-slate-500 dark:text-cyan-400/90 uppercase tracking-wider block">
+              <span className="text-[11px] font-mono font-medium text-cyan-600 dark:text-cyan-400/90 uppercase tracking-wider block">
                 Data Analyst & BI
               </span>
             </div>
