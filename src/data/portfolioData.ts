@@ -141,7 +141,7 @@ export const portfolioData: PortfolioData = {
     email: "zubairanwar499@gmail.com",
     linkedin: "https://www.linkedin.com/in/zubair-anwar-56762026a",
     linkedinDisplay: "linkedin.com/in/zubair-anwar-56762026a",
-    github: "https://github.com/zubairanwar",
+    github: "https://github.com/zubairanwar499-bi",
     location: "Global Remote / Worldwide",
     availability: "Available for freelance projects, consulting, and full-time opportunities",
     coreTools: ["Power BI", "Microsoft Fabric", "SQL", "DAX", "Power Query", "Excel", "Python", "Azure"],

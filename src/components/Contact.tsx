@@ -159,7 +159,7 @@ export const Contact: React.FC = () => {
                   <div>
                     <span className="text-[10px] font-mono text-slate-400 block">GitHub</span>
                     <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-cyan-500 truncate block">
-                      github.com/zubairanwar
+                      github.com/zubairanwar499-bi
                     </span>
                   </div>
                 </div>
