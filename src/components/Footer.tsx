@@ -68,9 +68,10 @@ export const Footer: React.FC = () => {
               </a>
 
               <a
-                href={`mailto:${personalInfo.email}`}
-                className="p-2.5 rounded-xl bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 transition-colors"
-                aria-label="Email"
+                href={`mailto:${personalInfo.email}?subject=Data%20Analytics%20Project%20Inquiry%20-%20Zubair%20Anwar`}
+                className="p-2.5 rounded-xl bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 transition-all hover:scale-110 shadow-sm"
+                aria-label="Email Zubair Anwar"
+                title={`Send email directly to ${personalInfo.email}`}
               >
                 <Mail className="w-4 h-4" />
               </a>
