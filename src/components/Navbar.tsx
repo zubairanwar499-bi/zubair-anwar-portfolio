@@ -63,11 +63,25 @@ export const Navbar: React.FC = () => {
     };
   }, []);
 
+  const navigateTo = (e: React.MouseEvent | React.TouchEvent, id: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+
+    // Give drawer a split moment to start closing then execute direct DOM scroll
+    setTimeout(() => {
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.history.replaceState(null, '', `#${id}`);
+      }
+    }, 50);
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled
-          ? 'bg-white/90 dark:bg-navy-950/90 backdrop-blur-md shadow-md border-b border-slate-200/80 dark:border-navy-800/80 py-2.5 sm:py-3'
+          ? 'bg-white/95 dark:bg-navy-950/95 backdrop-blur-md shadow-md border-b border-slate-200/80 dark:border-navy-800/80 py-2.5 sm:py-3'
           : 'bg-transparent py-4 sm:py-5'
       }`}
     >
@@ -77,7 +91,8 @@ export const Navbar: React.FC = () => {
           {/* Logo / Brand */}
           <a
             href="#home"
-            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus:ring-2 focus:ring-cyan-500 rounded-xl p-1"
+            onClick={(e) => navigateTo(e, 'home')}
+            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus:ring-2 focus:ring-cyan-500 rounded-xl p-1 cursor-pointer"
           >
             <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden ring-2 ring-cyan-500/50 shadow-md shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-200 shrink-0">
               <img
@@ -106,7 +121,8 @@ export const Navbar: React.FC = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-150 ${
+                  onClick={(e) => navigateTo(e, link.id)}
+                  className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-150 cursor-pointer ${
                     isActive
                       ? 'text-cyan-600 dark:text-cyan-400 font-bold'
                       : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
@@ -131,7 +147,8 @@ export const Navbar: React.FC = () => {
             <MoodSwitcher />
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:via-cyan-400 hover:to-teal-300 shadow-md shadow-cyan-500/25 transition-all duration-200 active:scale-95"
+              onClick={(e) => navigateTo(e, 'contact')}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:via-cyan-400 hover:to-teal-300 shadow-md shadow-cyan-500/25 transition-all duration-200 cursor-pointer"
             >
               <span>Let's Work Together</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -164,30 +181,32 @@ export const Navbar: React.FC = () => {
           >
             <div className="grid grid-cols-2 gap-2 pb-3 border-b border-slate-100 dark:border-navy-800">
               {navLinks.map((link) => (
-                <a
+                <button
                   key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3.5 py-3 rounded-xl text-sm font-semibold text-left transition-all block ${
+                  type="button"
+                  onClick={(e) => navigateTo(e, link.id)}
+                  onTouchEnd={(e) => navigateTo(e, link.id)}
+                  className={`px-3.5 py-3 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer select-none ${
                     activeSection === link.id
                       ? 'text-cyan-600 dark:text-cyan-400 bg-cyan-500/15 dark:bg-cyan-950/60 font-bold border border-cyan-500/30'
-                      : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-navy-850'
+                      : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-navy-850 active:bg-slate-200'
                   }`}
                 >
                   {link.name}
-                </a>
+                </button>
               ))}
             </div>
 
             <div className="pt-1">
-              <a
-                href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 shadow-md shadow-cyan-500/25 block text-center"
+              <button
+                type="button"
+                onClick={(e) => navigateTo(e, 'contact')}
+                onTouchEnd={(e) => navigateTo(e, 'contact')}
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 shadow-md shadow-cyan-500/25 cursor-pointer"
               >
                 <span>Let's Work Together</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </a>
+              </button>
             </div>
           </motion.div>
         )}
