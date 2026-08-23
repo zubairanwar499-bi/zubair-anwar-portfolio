@@ -6,12 +6,25 @@ export const ParticleBackdrop: React.FC<{ className?: string }> = ({ className =
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
     let animationFrameId: number;
+    let isVisible = true;
     let width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
     let height = (canvas.height = canvas.parentElement?.clientHeight || window.innerHeight);
+
+    // Pause when off-screen
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !animationFrameId) {
+          render();
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(canvas);
 
     const handleResize = () => {
       if (!canvas || !canvas.parentElement) return;
@@ -19,10 +32,11 @@ export const ParticleBackdrop: React.FC<{ className?: string }> = ({ className =
       height = canvas.height = canvas.parentElement.clientHeight;
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
 
-    // Particle nodes configuration
-    const particleCount = Math.min(45, Math.floor(width / 30));
+    // Lightweight node count for smooth 60-120fps
+    const isMobile = window.innerWidth < 768;
+    const particleCount = isMobile ? 18 : 32;
     const particles: {
       x: number;
       y: number;
@@ -37,45 +51,43 @@ export const ParticleBackdrop: React.FC<{ className?: string }> = ({ className =
       '#00f0ff', // cyan
       '#3b82f6', // blue
       '#8b5cf6', // purple
-      '#ec4899', // pink
       '#10b981', // emerald
-      '#f59e0b', // amber
     ];
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        radius: Math.random() * 2 + 1.2,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        alpha: Math.random() * 0.6 + 0.3,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        radius: Math.random() * 1.5 + 1,
+        color: colors[i % colors.length],
+        alpha: Math.random() * 0.4 + 0.2,
       });
     }
 
     const render = () => {
+      if (!isVisible) {
+        animationFrameId = 0;
+        return;
+      }
+
       ctx.clearRect(0, 0, width, height);
+
+      const maxDist = isMobile ? 90 : 110;
 
       // Draw connecting lines between close data nodes
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const distSq = dx * dx + dy * dy;
 
-          if (dist < 130) {
-            const lineAlpha = (1 - dist / 130) * 0.22;
-            const gradient = ctx.createLinearGradient(
-              particles[i].x,
-              particles[i].y,
-              particles[j].x,
-              particles[j].y
-            );
-            gradient.addColorStop(0, particles[i].color);
-            gradient.addColorStop(1, particles[j].color);
+          if (distSq < maxDist * maxDist) {
+            const dist = Math.sqrt(distSq);
+            const lineAlpha = (1 - dist / maxDist) * 0.15;
 
-            ctx.strokeStyle = gradient;
+            ctx.strokeStyle = particles[i].color;
             ctx.globalAlpha = lineAlpha;
             ctx.lineWidth = 1;
             ctx.beginPath();
@@ -86,7 +98,7 @@ export const ParticleBackdrop: React.FC<{ className?: string }> = ({ className =
         }
       }
 
-      // Draw particle nodes with soft glow
+      // Draw particle nodes
       particles.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
@@ -98,14 +110,9 @@ export const ParticleBackdrop: React.FC<{ className?: string }> = ({ className =
 
         ctx.globalAlpha = p.alpha;
         ctx.fillStyle = p.color;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = p.color;
-
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fill();
-
-        ctx.shadowBlur = 0;
       });
 
       animationFrameId = requestAnimationFrame(render);
@@ -114,8 +121,9 @@ export const ParticleBackdrop: React.FC<{ className?: string }> = ({ className =
     render();
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, []);
 

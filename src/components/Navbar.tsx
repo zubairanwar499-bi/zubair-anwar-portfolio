@@ -22,56 +22,71 @@ export const Navbar: React.FC = () => {
   ];
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-
-      // Active section observer
-      const sections = ['home', 'about', 'projects', 'skills', 'experience', 'services', 'credibility', 'contact'];
-      const scrollPosition = window.scrollY + 200;
-
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // High performance IntersectionObserver for active section highlighting
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: '-30% 0px -60% 0px',
+        threshold: 0,
+      }
+    );
+
+    const sectionIds = ['home', 'about', 'projects', 'skills', 'experience', 'services', 'credibility', 'contact'];
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   const scrollToSection = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
 
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) {
-        const navHeight = 75;
-        const elementPosition = el.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-        window.scrollTo({
-          top: offsetPosition > 0 ? offsetPosition : 0,
-          behavior: 'smooth',
-        });
-      }
-    }, 120);
+    const el = document.getElementById(id);
+    if (el) {
+      const navHeight = 75;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+      window.scrollTo({
+        top: offsetPosition > 0 ? offsetPosition : 0,
+        behavior: 'smooth',
+      });
+    }
   };
 
   return (
     <motion.header
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled
-          ? 'bg-white/90 dark:bg-navy-950/90 backdrop-blur-xl shadow-lg border-b border-slate-200/80 dark:border-navy-800/80 py-3'
+          ? 'bg-white/90 dark:bg-navy-950/90 backdrop-blur-md shadow-md border-b border-slate-200/80 dark:border-navy-800/80 py-2.5 sm:py-3'
           : 'bg-transparent py-4 sm:py-5'
       }`}
     >
@@ -82,12 +97,13 @@ export const Navbar: React.FC = () => {
           <a
             href="#home"
             onClick={(e) => scrollToSection(e, 'home')}
-            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus:ring-2 focus:ring-cyan-500 rounded-xl p-1"
+            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus:ring-2 focus:ring-cyan-500 rounded-xl p-1 cursor-pointer"
           >
             <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden ring-2 ring-cyan-500/50 shadow-md shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-200 shrink-0">
               <img
                 src={portfolioData.personalInfo.avatarUrl || '/assets/profile.png'}
                 alt={portfolioData.personalInfo.name}
+                loading="eager"
                 className="w-full h-full object-cover object-top"
               />
             </div>
@@ -121,7 +137,7 @@ export const Navbar: React.FC = () => {
                     <motion.div
                       layoutId="activeNavPill"
                       className="absolute inset-0 rounded-lg bg-cyan-500/10 dark:bg-cyan-500/20 border border-cyan-500/30 -z-10"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 35 }}
                     />
                   )}
                   {link.name}
@@ -167,8 +183,8 @@ export const Navbar: React.FC = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="lg:hidden bg-white/95 dark:bg-navy-900/95 backdrop-blur-2xl border-b border-slate-200 dark:border-navy-800 px-4 pt-3 pb-6 space-y-3 shadow-2xl overflow-hidden"
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="lg:hidden bg-white/95 dark:bg-navy-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-navy-800 px-4 pt-3 pb-6 space-y-3 shadow-2xl overflow-hidden"
           >
             <div className="grid grid-cols-2 gap-2 pb-3 border-b border-slate-100 dark:border-navy-800">
               {navLinks.map((link) => (

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 interface TiltCardProps {
   children: React.ReactNode;
@@ -11,17 +11,22 @@ interface TiltCardProps {
 export const TiltCard: React.FC<TiltCardProps> = ({
   children,
   className = '',
-  maxTilt = 10,
-  scale = 1.02,
-  glowColor = 'rgba(0, 240, 255, 0.25)',
+  maxTilt = 8,
+  scale = 1.015,
+  glowColor = 'rgba(0, 240, 255, 0.2)',
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice(window.matchMedia('(hover: none)').matches);
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (isTouchDevice || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -36,12 +41,12 @@ export const TiltCard: React.FC<TiltCardProps> = ({
     setGlare({
       x: (x / rect.width) * 100,
       y: (y / rect.height) * 100,
-      opacity: 0.6,
+      opacity: 0.4,
     });
   };
 
   const handleMouseEnter = () => {
-    setIsHovered(true);
+    if (!isTouchDevice) setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
@@ -56,24 +61,26 @@ export const TiltCard: React.FC<TiltCardProps> = ({
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`tilt-card relative transition-transform duration-200 ease-out will-change-transform ${className}`}
+      className={`tilt-card relative transition-transform duration-150 ease-out will-change-transform ${className}`}
       style={{
         transformStyle: 'preserve-3d',
-        transform: isHovered
+        transform: isHovered && !isTouchDevice
           ? `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale3d(${scale}, ${scale}, ${scale})`
           : 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
       }}
     >
-      {/* Dynamic Holographic / Rainbow Glare Sheen Overlay */}
-      <div
-        className="pointer-events-none absolute inset-0 rounded-[inherit] z-10 transition-opacity duration-300 overflow-hidden"
-        style={{
-          opacity: glare.opacity,
-          background: `radial-gradient(circle 320px at ${glare.x}% ${glare.y}%, ${glowColor}, rgba(147, 51, 234, 0.15), rgba(236, 72, 153, 0.1), transparent 70%)`,
-        }}
-      />
+      {/* Glare Sheen Overlay - only desktop */}
+      {!isTouchDevice && (
+        <div
+          className="pointer-events-none absolute inset-0 rounded-[inherit] z-10 transition-opacity duration-200 overflow-hidden"
+          style={{
+            opacity: glare.opacity,
+            background: `radial-gradient(circle 300px at ${glare.x}% ${glare.y}%, ${glowColor}, transparent 70%)`,
+          }}
+        />
+      )}
 
-      {/* Card Content with 3D depth */}
+      {/* Card Content */}
       <div className="relative z-0 h-full w-full rounded-[inherit]">
         {children}
       </div>
