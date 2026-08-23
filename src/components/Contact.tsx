@@ -238,7 +238,7 @@ export const Contact: React.FC = () => {
                 href={personalInfo.whatsapp || "https://wa.me/923433215701?text=Hi%20Zubair,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20data%20analytics%20project."}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3.5 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-300/60 dark:border-emerald-800/60 flex items-center justify-between gap-3 hover:border-emerald-500 transition-colors group"
+                className="p-3.5 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-300/60 dark:border-emerald-800/60 flex items-center justify-between gap-3 hover:border-emerald-500 transition-colors group cursor-pointer"
               >
                 <div className="flex items-center gap-3 overflow-hidden">
                   <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shrink-0 group-hover:scale-110 transition-transform">
@@ -247,32 +247,13 @@ export const Contact: React.FC = () => {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold block">WhatsApp Instant Message</span>
+                    <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold block">Instant Messaging</span>
                     <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-emerald-500 truncate block">
-                      {personalInfo.whatsappDisplay || "03433215701"}
+                      Chat on WhatsApp
                     </span>
                   </div>
                 </div>
                 <ArrowRight className="w-4 h-4 text-emerald-500 group-hover:translate-x-0.5 transition-all" />
-              </a>
-
-              {/* Direct Phone / Call */}
-              <a
-                href="tel:03433215701"
-                className="p-3.5 rounded-2xl bg-slate-50 dark:bg-navy-850 border border-slate-200/70 dark:border-navy-800 flex items-center justify-between gap-3 hover:border-cyan-500/50 transition-colors group"
-              >
-                <div className="flex items-center gap-3 overflow-hidden">
-                  <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 shrink-0 group-hover:scale-110 transition-transform">
-                    <MessageSquareCode className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-mono text-slate-400 block">Direct Phone / Call</span>
-                    <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-cyan-500 truncate block">
-                      03433215701
-                    </span>
-                  </div>
-                </div>
-                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-cyan-500 group-hover:translate-x-0.5 transition-all" />
               </a>
 
             </div>
@@ -464,7 +445,7 @@ export const Contact: React.FC = () => {
                       <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                         <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.41a8.216 8.216 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.25-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.71 4.3 3.8 2.52 1.09 2.52.73 2.98.69.46-.04 1.47-.6 1.68-1.19.21-.58.21-1.08.15-1.19-.06-.11-.23-.17-.48-.29Z"/>
                       </svg>
-                      <span>Chat on WhatsApp ({personalInfo.whatsappDisplay || "03433215701"})</span>
+                      <span>Chat on WhatsApp</span>
                     </a>
                   </div>
                 </form>
