@@ -3,11 +3,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-navy-950: #060B18;
-  --color-navy-900: #0B132B;
-  --color-navy-850: #111C38;
-  --color-navy-800: #1C2541;
-  --color-navy-750: #263354;
+  --color-navy-950: var(--bg-surface);
+  --color-navy-900: var(--bg-card-raw);
+  --color-navy-850: var(--bg-card-subtle);
+  --color-navy-800: var(--border-subtle);
+  --color-navy-750: var(--border-medium);
   --color-navy-700: #3A506B;
 }
 
@@ -17,76 +17,102 @@
 
 :root {
   --accent-primary: #00f0ff;
-  --accent-secondary: #8b5cf6;
-  --accent-tertiary: #ec4899;
+  --accent-secondary: #3b82f6;
+  --accent-tertiary: #8b5cf6;
   --glow-rgb: 0, 240, 255;
-  --bg-surface: #060b18;
+  --bg-surface: #050a17;
+  --bg-card-raw: #0b132b;
+  --bg-card-subtle: #111c38;
+  --border-subtle: #1c2541;
+  --border-medium: #263354;
   --bg-card: rgba(11, 19, 43, 0.85);
-  --border-glow: rgba(0, 240, 255, 0.25);
+  --border-glow: rgba(0, 240, 255, 0.3);
 }
 
-/* Mood 1: Cyber Omni (Default) */
+/* Mood 1: Cyber Dark (Default) */
 .mood-cyber {
   --accent-primary: #00f0ff;
   --accent-secondary: #3b82f6;
   --accent-tertiary: #8b5cf6;
   --glow-rgb: 0, 240, 255;
   --bg-surface: #050a17;
+  --bg-card-raw: #0b132b;
+  --bg-card-subtle: #111c38;
+  --border-subtle: #1c2541;
+  --border-medium: #263354;
   --bg-card: rgba(11, 19, 43, 0.85);
-  --border-glow: rgba(0, 240, 255, 0.3);
+  --border-glow: rgba(0, 240, 255, 0.35);
 }
 
-/* Mood 2: Emerald Matrix */
-.mood-emerald {
-  --accent-primary: #10b981;
-  --accent-secondary: #14b8a6;
-  --accent-tertiary: #f59e0b;
-  --glow-rgb: 16, 185, 129;
-  --bg-surface: #04120e;
-  --bg-card: rgba(6, 28, 22, 0.85);
-  --border-glow: rgba(16, 185, 129, 0.35);
-}
-
-/* Mood 3: Sunset Aurora */
-.mood-aurora {
-  --accent-primary: #f43f5e;
-  --accent-secondary: #ec4899;
-  --accent-tertiary: #f59e0b;
-  --glow-rgb: 244, 63, 94;
-  --bg-surface: #14070e;
-  --bg-card: rgba(36, 10, 24, 0.85);
-  --border-glow: rgba(244, 63, 94, 0.35);
-}
-
-/* Mood 4: Cosmic OLED Obsidian */
-.mood-obsidian {
-  --accent-primary: #a855f7;
-  --accent-secondary: #6366f1;
-  --accent-tertiary: #ec4899;
-  --glow-rgb: 168, 85, 247;
-  --bg-surface: #000000;
-  --bg-card: rgba(14, 10, 26, 0.9);
-  --border-glow: rgba(168, 85, 247, 0.4);
-}
-
-/* Mood 5: Executive Studio Light */
+/* Mood 2: Pure White (Light) */
 .mood-light {
   --accent-primary: #2563eb;
   --accent-secondary: #4f46e5;
   --accent-tertiary: #06b6d4;
   --glow-rgb: 37, 99, 235;
   --bg-surface: #f8fafc;
+  --bg-card-raw: #ffffff;
+  --bg-card-subtle: #f1f5f9;
+  --border-subtle: #e2e8f0;
+  --border-medium: #cbd5e1;
   --bg-card: rgba(255, 255, 255, 0.95);
-  --border-glow: rgba(37, 99, 235, 0.2);
+  --border-glow: rgba(37, 99, 235, 0.25);
+}
+
+/* Mood 3: Emerald Matrix */
+.mood-emerald {
+  --accent-primary: #10b981;
+  --accent-secondary: #14b8a6;
+  --accent-tertiary: #f59e0b;
+  --glow-rgb: 16, 185, 129;
+  --bg-surface: #021a12;
+  --bg-card-raw: #05291d;
+  --bg-card-subtle: #083b2a;
+  --border-subtle: #0c4d37;
+  --border-medium: #116247;
+  --bg-card: rgba(5, 41, 29, 0.9);
+  --border-glow: rgba(16, 185, 129, 0.4);
+}
+
+/* Mood 4: Sunset Aurora */
+.mood-aurora {
+  --accent-primary: #f43f5e;
+  --accent-secondary: #ec4899;
+  --accent-tertiary: #f59e0b;
+  --glow-rgb: 244, 63, 94;
+  --bg-surface: #190412;
+  --bg-card-raw: #2b0820;
+  --bg-card-subtle: #3d0c2e;
+  --border-subtle: #52113e;
+  --border-medium: #6b1752;
+  --bg-card: rgba(43, 8, 32, 0.9);
+  --border-glow: rgba(244, 63, 94, 0.4);
+}
+
+/* Mood 5: Cosmic Obsidian (Pitch Black) */
+.mood-obsidian {
+  --accent-primary: #c084fc;
+  --accent-secondary: #a855f7;
+  --accent-tertiary: #f43f5e;
+  --glow-rgb: 192, 132, 252;
+  --bg-surface: #000000;
+  --bg-card-raw: #09090b;
+  --bg-card-subtle: #121217;
+  --border-subtle: #1f1f28;
+  --border-medium: #2e2e3d;
+  --bg-card: rgba(9, 9, 11, 0.95);
+  --border-glow: rgba(192, 132, 252, 0.45);
 }
 
 html {
   scroll-behavior: smooth;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body {
   background-color: var(--bg-surface);
+  color: var(--color-text, inherit);
+  transition: background-color 0.4s ease;
 }
 
 /* Custom scrollbar */
@@ -116,13 +142,17 @@ body {
 .dark .data-grid-pattern {
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(var(--glow-rgb), 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(var(--glow-rgb), 0.07) 1px, transparent 1px);
+    linear-gradient(to right, rgba(var(--glow-rgb), 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(var(--glow-rgb), 0.09) 1px, transparent 1px);
 }
 
 /* 3D Perspective & Depth */
 .perspective-1000 {
   perspective: 1000px;
+}
+
+.perspective-1200 {
+  perspective: 1200px;
 }
 
 .perspective-2000 {

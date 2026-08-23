@@ -115,6 +115,8 @@ export interface PortfolioData {
     positioningStatement: string;
     email: string;
     phone?: string;
+    whatsapp?: string;
+    whatsappDisplay?: string;
     linkedin: string;
     linkedinDisplay: string;
     github: string;
@@ -141,8 +143,10 @@ export const portfolioData: PortfolioData = {
     headline: "Turning Data Into Stories That Drive Smarter Business Decisions.",
     subtitle: "Passionate Data Analyst with hands-on experience turning raw data into interactive dashboards, predictive models, and actionable insights. Skilled in Power BI, Advanced Excel, SQL, and Python.",
     positioningStatement: "I specialize in transforming complex multi-source data into clear, interactive dashboards and automated reporting systems that fuel growth, efficiency, and smarter decisions.",
-    email: "Zubairanwar218095@gmail.com",
-    phone: "+92 3433215701",
+    email: "zubairanwar499@gmail.com",
+    phone: "03433215701",
+    whatsapp: "https://wa.me/923433215701?text=Hi%20Zubair,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20data%20analytics%20project.",
+    whatsappDisplay: "03433215701",
     linkedin: "https://www.linkedin.com/in/zubair-anwar-56762026a",
     linkedinDisplay: "linkedin.com/in/zubair-anwar",
     github: "https://github.com/zubairanwar499-bi",
