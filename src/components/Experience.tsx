@@ -1,14 +1,21 @@
 import React from 'react';
 import { portfolioData } from '../data/portfolioData';
 import { Briefcase, Calendar, MapPin, CheckCircle2, TrendingUp } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export const Experience: React.FC = () => {
   return (
-    <section id="experience" className="py-24 bg-slate-50/70 dark:bg-navy-950/70 relative">
+    <section id="experience" className="py-24 bg-slate-50/70 dark:bg-navy-950/70 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-14">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mb-14"
+        >
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-mono font-bold tracking-wide uppercase mb-3">
             <Briefcase className="w-3.5 h-3.5" />
             <span>Professional Journey</span>
@@ -19,20 +26,30 @@ export const Experience: React.FC = () => {
           <p className="mt-2 text-slate-600 dark:text-slate-300 text-base">
             Focusing on measurable business impact, data pipeline reliability, and executive reporting systems.
           </p>
-        </div>
+        </motion.div>
 
         {/* Timeline List */}
         <div className="space-y-8 max-w-4xl">
           {portfolioData.experience.map((exp, idx) => (
-            <div
+            <motion.div
               key={idx}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.15 }}
               className="relative pl-6 sm:pl-8 border-l-2 border-slate-200 dark:border-navy-800 space-y-6 group"
             >
-              {/* Timeline Pin */}
-              <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-white dark:bg-navy-950 border-2 border-cyan-500 group-hover:scale-125 transition-transform"></div>
+              {/* Timeline Pin with Animated Glow Ping */}
+              <motion.div
+                whileHover={{ scale: 1.5 }}
+                className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-white dark:bg-navy-950 border-2 border-cyan-500 shadow-[0_0_10px_#00f0ff] transition-transform"
+              />
 
-              {/* Experience Card */}
-              <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-navy-900 border border-slate-200/80 dark:border-navy-800 shadow-md space-y-6">
+              {/* Experience Card with Framer Motion hover */}
+              <motion.div
+                whileHover={{ scale: 1.015, y: -3 }}
+                className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-navy-900 border border-slate-200/80 dark:border-navy-800 shadow-md hover:shadow-2xl hover:border-cyan-500/50 space-y-6 transition-all duration-300 group cursor-default"
+              >
                 
                 {/* Header Information */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-navy-800">
@@ -70,7 +87,7 @@ export const Experience: React.FC = () => {
                   <div className="grid grid-cols-1 gap-2">
                     {exp.responsibilities.map((resp, rIdx) => (
                       <div key={rIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
-                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0 mt-2"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0 mt-2 shadow-[0_0_4px_#00f0ff]"></span>
                         <span>{resp}</span>
                       </div>
                     ))}
@@ -96,17 +113,18 @@ export const Experience: React.FC = () => {
                 {/* Technologies Used Strip */}
                 <div className="flex flex-wrap gap-1.5 pt-2">
                   {exp.technologies.map((t) => (
-                    <span
+                    <motion.span
                       key={t}
-                      className="px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-slate-100 dark:bg-navy-800 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-navy-750"
+                      whileHover={{ scale: 1.08 }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-mono font-medium bg-slate-100 dark:bg-navy-800 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-navy-750 cursor-default"
                     >
                       {t}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
 
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
 
