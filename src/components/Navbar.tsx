@@ -36,7 +36,7 @@ export const Navbar: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // High performance IntersectionObserver for active section highlighting
+    // Active section observer
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -46,7 +46,7 @@ export const Navbar: React.FC = () => {
         });
       },
       {
-        rootMargin: '-30% 0px -60% 0px',
+        rootMargin: '-20% 0px -60% 0px',
         threshold: 0,
       }
     );
@@ -63,27 +63,8 @@ export const Navbar: React.FC = () => {
     };
   }, []);
 
-  const scrollToSection = (e: React.MouseEvent, id: string) => {
-    e.preventDefault();
-    setMobileMenuOpen(false);
-
-    const el = document.getElementById(id);
-    if (el) {
-      const navHeight = 75;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-      window.scrollTo({
-        top: offsetPosition > 0 ? offsetPosition : 0,
-        behavior: 'smooth',
-      });
-    }
-  };
-
   return (
-    <motion.header
-      initial={{ y: -60, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled
           ? 'bg-white/90 dark:bg-navy-950/90 backdrop-blur-md shadow-md border-b border-slate-200/80 dark:border-navy-800/80 py-2.5 sm:py-3'
@@ -96,8 +77,7 @@ export const Navbar: React.FC = () => {
           {/* Logo / Brand */}
           <a
             href="#home"
-            onClick={(e) => scrollToSection(e, 'home')}
-            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus:ring-2 focus:ring-cyan-500 rounded-xl p-1 cursor-pointer"
+            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus:ring-2 focus:ring-cyan-500 rounded-xl p-1"
           >
             <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden ring-2 ring-cyan-500/50 shadow-md shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-200 shrink-0">
               <img
@@ -126,8 +106,7 @@ export const Navbar: React.FC = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={(e) => scrollToSection(e, link.id)}
-                  className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-150 cursor-pointer ${
+                  className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-150 ${
                     isActive
                       ? 'text-cyan-600 dark:text-cyan-400 font-bold'
                       : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
@@ -150,16 +129,13 @@ export const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
             <MoodSwitcher />
-            <motion.a
-              whileHover={{ scale: 1.04, y: -1 }}
-              whileTap={{ scale: 0.96 }}
+            <a
               href="#contact"
-              onClick={(e) => scrollToSection(e, 'contact')}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:via-cyan-400 hover:to-teal-300 shadow-md shadow-cyan-500/25 transition-all duration-200 cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:via-cyan-400 hover:to-teal-300 shadow-md shadow-cyan-500/25 transition-all duration-200 active:scale-95"
             >
               <span>Let's Work Together</span>
               <ArrowUpRight className="w-4 h-4" />
-            </motion.a>
+            </a>
           </div>
 
           {/* Mobile Menu & Theme Toggle */}
@@ -184,36 +160,38 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="lg:hidden bg-white/95 dark:bg-navy-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-navy-800 px-4 pt-3 pb-6 space-y-3 shadow-2xl overflow-hidden"
+            className="lg:hidden bg-white/98 dark:bg-navy-900/98 backdrop-blur-xl border-b border-slate-200 dark:border-navy-800 px-4 pt-3 pb-6 space-y-3 shadow-2xl overflow-hidden"
           >
             <div className="grid grid-cols-2 gap-2 pb-3 border-b border-slate-100 dark:border-navy-800">
               {navLinks.map((link) => (
-                <button
+                <a
                   key={link.name}
-                  onClick={(e) => scrollToSection(e, link.id)}
-                  className={`px-3.5 py-3 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer ${
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-3.5 py-3 rounded-xl text-sm font-semibold text-left transition-all block ${
                     activeSection === link.id
                       ? 'text-cyan-600 dark:text-cyan-400 bg-cyan-500/15 dark:bg-cyan-950/60 font-bold border border-cyan-500/30'
                       : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-navy-850'
                   }`}
                 >
                   {link.name}
-                </button>
+                </a>
               ))}
             </div>
 
             <div className="pt-1">
-              <button
-                onClick={(e) => scrollToSection(e, 'contact')}
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 shadow-md shadow-cyan-500/25 cursor-pointer"
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 shadow-md shadow-cyan-500/25 block text-center"
               >
                 <span>Let's Work Together</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </button>
+              </a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 };

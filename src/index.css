@@ -117,11 +117,6 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Hardware accelerated section containers */
-section {
-  transform: translateZ(0);
-}
-
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
