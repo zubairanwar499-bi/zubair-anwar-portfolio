@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { Project } from '../data/portfolioData';
 import { portfolioData } from '../data/portfolioData';
 import { DashboardMock } from './DashboardMock';
+import { motion } from 'framer-motion';
 import { 
   X, 
   ArrowLeft, 
@@ -62,9 +63,20 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
   const nextProject = currentIndex < portfolioData.projects.length - 1 ? portfolioData.projects[currentIndex + 1] : portfolioData.projects[0];
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-md flex justify-center p-2 sm:p-4 lg:p-6 animate-fadeIn">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-md flex justify-center p-2 sm:p-4 lg:p-6"
+    >
       
-      <div className="relative w-full max-w-5xl bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.93, y: 25 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.93, y: 25 }}
+        transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+        className="relative w-full max-w-5xl bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]"
+      >
         
         {/* Modal Sticky Header */}
         <div className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-white/95 dark:bg-navy-900/95 backdrop-blur-md border-b border-slate-200 dark:border-navy-800">
@@ -574,8 +586,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
           </div>
 
         </div>
-
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

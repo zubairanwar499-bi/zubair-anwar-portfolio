@@ -5,6 +5,7 @@ import { ProjectCard } from './ProjectCard';
 import { ProjectFilter } from './ProjectFilter';
 import { CaseStudyModal } from './CaseStudyModal';
 import { FolderGit2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const Projects: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -52,23 +53,40 @@ export const Projects: React.FC = () => {
           projectCounts={projectCounts}
         />
 
-        {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {filteredProjects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onOpenCaseStudy={(p) => setSelectedCaseStudy(p)}
-            />
-          ))}
-        </div>
+        {/* Project Grid with Framer Motion Layout animations */}
+        <motion.div
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+        >
+          <AnimatePresence>
+            {filteredProjects.map((project) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <ProjectCard
+                  project={project}
+                  onOpenCaseStudy={(p) => setSelectedCaseStudy(p)}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
         {/* Deep Case Study Modal View */}
-        <CaseStudyModal
-          project={selectedCaseStudy}
-          onClose={() => setSelectedCaseStudy(null)}
-          onSelectProject={(p) => setSelectedCaseStudy(p)}
-        />
+        <AnimatePresence>
+          {selectedCaseStudy && (
+            <CaseStudyModal
+              project={selectedCaseStudy}
+              onClose={() => setSelectedCaseStudy(null)}
+              onSelectProject={(p) => setSelectedCaseStudy(p)}
+            />
+          )}
+        </AnimatePresence>
 
       </div>
     </section>

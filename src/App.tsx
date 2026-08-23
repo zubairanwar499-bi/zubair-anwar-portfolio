@@ -14,11 +14,13 @@ import { Education } from './components/Education';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { CursorGlow } from './components/CursorGlow';
+import { MoodDock } from './components/MoodDock';
+import { MotionFadeIn } from './components/MotionWrappers';
 
 export const App: React.FC = () => {
   return (
     <ThemeProvider>
-      <div className="relative min-h-screen bg-slate-50 dark:bg-navy-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans selection:bg-cyan-500 selection:text-white">
+      <div className="relative min-h-screen bg-slate-50 dark:bg-navy-950 text-slate-900 dark:text-slate-100 transition-colors duration-500 font-sans selection:bg-cyan-500 selection:text-white">
         
         {/* Dynamic High-Glow Rainbow Cursor Follower */}
         <CursorGlow />
@@ -26,19 +28,52 @@ export const App: React.FC = () => {
         {/* Sticky Top Navigation */}
         <Navbar />
 
-        {/* Main Content Sections */}
+        {/* Floating 5-Mood Atmosphere Dock */}
+        <MoodDock />
+
+        {/* Main Content Sections with Framer Motion Reveals */}
         <main className="relative z-10">
           <Hero />
-          <TrustBar />
-          <LifecycleSection />
-          <About />
-          <Projects />
-          <Skills />
-          <Experience />
-          <Services />
-          <Credibility />
-          <Education />
-          <Contact />
+
+          <MotionFadeIn delay={0.1}>
+            <TrustBar />
+          </MotionFadeIn>
+
+          <MotionFadeIn delay={0.1}>
+            <LifecycleSection />
+          </MotionFadeIn>
+
+          <MotionFadeIn delay={0.1}>
+            <About />
+          </MotionFadeIn>
+
+          <MotionFadeIn delay={0.1}>
+            <Projects />
+          </MotionFadeIn>
+
+          <MotionFadeIn delay={0.1}>
+            <Skills />
+          </MotionFadeIn>
+
+          <MotionFadeIn delay={0.1}>
+            <Experience />
+          </MotionFadeIn>
+
+          <MotionFadeIn delay={0.1}>
+            <Services />
+          </MotionFadeIn>
+
+          <MotionFadeIn delay={0.1}>
+            <Credibility />
+          </MotionFadeIn>
+
+          <MotionFadeIn delay={0.1}>
+            <Education />
+          </MotionFadeIn>
+
+          <MotionFadeIn delay={0.1}>
+            <Contact />
+          </MotionFadeIn>
         </main>
 
         {/* Footer */}

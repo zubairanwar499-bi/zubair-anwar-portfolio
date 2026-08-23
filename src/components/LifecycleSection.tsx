@@ -11,6 +11,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const LifecycleSection: React.FC = () => {
   const [selectedStep, setSelectedStep] = useState(4); // Default to Data Modeling / Analysis
@@ -52,15 +53,15 @@ export const LifecycleSection: React.FC = () => {
               <button
                 key={step.step}
                 onClick={() => setSelectedStep(step.step)}
-                className={`flex flex-col items-center p-3.5 rounded-xl border text-center transition-all duration-200 ${
+                className={`relative flex flex-col items-center p-3.5 rounded-2xl border text-center transition-all duration-200 cursor-pointer ${
                   isSelected
-                    ? 'bg-white dark:bg-navy-850 border-cyan-500 shadow-lg shadow-cyan-500/15 scale-105 ring-2 ring-cyan-500/20'
+                    ? 'bg-white dark:bg-navy-850 border-cyan-500 shadow-xl shadow-cyan-500/20 scale-105 ring-2 ring-cyan-500/30'
                     : 'bg-white/80 dark:bg-navy-900/80 border-slate-200 dark:border-navy-800 hover:border-slate-300 dark:hover:border-navy-700'
                 }`}
               >
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center mb-2 font-mono text-xs font-bold ${
+                <div className={`w-8 h-8 rounded-xl flex items-center justify-center mb-2 font-mono text-xs font-bold transition-transform ${
                   isSelected 
-                    ? 'bg-gradient-to-tr from-blue-600 to-cyan-500 text-white' 
+                    ? 'bg-gradient-to-tr from-blue-600 via-cyan-500 to-teal-400 text-white shadow-md' 
                     : 'bg-slate-100 dark:bg-navy-800 text-slate-600 dark:text-slate-400'
                 }`}>
                   0{step.step}
@@ -78,53 +79,56 @@ export const LifecycleSection: React.FC = () => {
           })}
         </div>
 
-        {/* Selected Stage Detail Card */}
-        {(() => {
-          const current = portfolioData.lifecycleSteps.find(s => s.step === selectedStep) || portfolioData.lifecycleSteps[0];
-          const CurrentIcon = icons[current.step - 1];
+        {/* Detail Callout Card for Selected Stage with Framer Motion AnimatePresence */}
+        <AnimatePresence mode="wait">
+          {portfolioData.lifecycleSteps
+            .filter((s) => s.step === selectedStep)
+            .map((step) => {
+              const StepIcon = icons[step.step - 1] || Database;
 
-          return (
-            <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-800 shadow-xl max-w-4xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-6">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-cyan-500/30 shrink-0">
-                <CurrentIcon className="w-8 h-8" />
-              </div>
-
-              <div className="flex-1 space-y-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">
-                    Stage 0{current.step} of 08
-                  </span>
-                  <span className="text-slate-300 dark:text-navy-700">•</span>
-                  <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                    {current.shortDesc}
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                  {current.title}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                  {current.detail}
-                </p>
-              </div>
-
-              <div className="w-full md:w-auto flex md:flex-col justify-between gap-2 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 md:border-l border-slate-100 dark:border-navy-800 md:pl-6">
-                <button
-                  onClick={() => setSelectedStep((prev) => (prev > 1 ? prev - 1 : 8))}
-                  className="px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-cyan-500 transition-colors"
+              return (
+                <motion.div
+                  key={step.step}
+                  initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -15, scale: 0.98 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-navy-900 border border-slate-200/90 dark:border-navy-750 shadow-xl dynamic-mood-glow"
                 >
-                  ← Prev Stage
-                </button>
-                <button
-                  onClick={() => setSelectedStep((prev) => (prev < 8 ? prev + 1 : 1))}
-                  className="px-4 py-2 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-bold hover:bg-cyan-500/20 transition-colors flex items-center gap-1"
-                >
-                  <span>Next Stage</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
-          );
-        })()}
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3.5 rounded-2xl bg-gradient-to-tr from-blue-600 via-cyan-500 to-teal-400 text-white shadow-lg shadow-cyan-500/25 shrink-0">
+                        <StepIcon className="w-6 h-6" />
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 font-mono text-xs text-cyan-600 dark:text-cyan-400 font-bold">
+                          <span>Stage 0{step.step} of 08</span>
+                          <span>•</span>
+                          <span>{step.shortDesc}</span>
+                        </div>
+                        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+                          {step.title}
+                        </h3>
+                        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed pt-1">
+                          {step.detail}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="shrink-0 flex md:flex-col items-center gap-2">
+                      <button
+                        onClick={() => setSelectedStep((prev) => (prev % 8) + 1)}
+                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs bg-slate-900 text-white dark:bg-navy-800 hover:bg-cyan-500 dark:hover:bg-cyan-500 hover:text-slate-950 transition-colors shadow-sm cursor-pointer"
+                      >
+                        <span>Next Phase</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+        </AnimatePresence>
 
       </div>
     </section>

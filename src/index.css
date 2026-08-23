@@ -11,8 +11,82 @@
   --color-navy-700: #3A506B;
 }
 
+/* =========================================================
+   5-MOOD PALETTE SYSTEM (Dynamic Atmosphere Variables)
+   ========================================================= */
+
+:root {
+  --accent-primary: #00f0ff;
+  --accent-secondary: #8b5cf6;
+  --accent-tertiary: #ec4899;
+  --glow-rgb: 0, 240, 255;
+  --bg-surface: #060b18;
+  --bg-card: rgba(11, 19, 43, 0.85);
+  --border-glow: rgba(0, 240, 255, 0.25);
+}
+
+/* Mood 1: Cyber Omni (Default) */
+.mood-cyber {
+  --accent-primary: #00f0ff;
+  --accent-secondary: #3b82f6;
+  --accent-tertiary: #8b5cf6;
+  --glow-rgb: 0, 240, 255;
+  --bg-surface: #050a17;
+  --bg-card: rgba(11, 19, 43, 0.85);
+  --border-glow: rgba(0, 240, 255, 0.3);
+}
+
+/* Mood 2: Emerald Matrix */
+.mood-emerald {
+  --accent-primary: #10b981;
+  --accent-secondary: #14b8a6;
+  --accent-tertiary: #f59e0b;
+  --glow-rgb: 16, 185, 129;
+  --bg-surface: #04120e;
+  --bg-card: rgba(6, 28, 22, 0.85);
+  --border-glow: rgba(16, 185, 129, 0.35);
+}
+
+/* Mood 3: Sunset Aurora */
+.mood-aurora {
+  --accent-primary: #f43f5e;
+  --accent-secondary: #ec4899;
+  --accent-tertiary: #f59e0b;
+  --glow-rgb: 244, 63, 94;
+  --bg-surface: #14070e;
+  --bg-card: rgba(36, 10, 24, 0.85);
+  --border-glow: rgba(244, 63, 94, 0.35);
+}
+
+/* Mood 4: Cosmic OLED Obsidian */
+.mood-obsidian {
+  --accent-primary: #a855f7;
+  --accent-secondary: #6366f1;
+  --accent-tertiary: #ec4899;
+  --glow-rgb: 168, 85, 247;
+  --bg-surface: #000000;
+  --bg-card: rgba(14, 10, 26, 0.9);
+  --border-glow: rgba(168, 85, 247, 0.4);
+}
+
+/* Mood 5: Executive Studio Light */
+.mood-light {
+  --accent-primary: #2563eb;
+  --accent-secondary: #4f46e5;
+  --accent-tertiary: #06b6d4;
+  --glow-rgb: 37, 99, 235;
+  --bg-surface: #f8fafc;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --border-glow: rgba(37, 99, 235, 0.2);
+}
+
 html {
   scroll-behavior: smooth;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body {
+  background-color: var(--bg-surface);
 }
 
 /* Custom scrollbar */
@@ -24,32 +98,26 @@ html {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: rgba(var(--glow-rgb), 0.3);
   border-radius: 4px;
 }
-.dark ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-}
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: rgba(var(--glow-rgb), 0.6);
 }
 
-/* Subtle grid backdrop for analytics aesthetic */
+/* Data grid pattern with dynamic mood glow */
 .data-grid-pattern {
-  background-size: 36px 36px;
+  background-size: 40px 40px;
   background-image: 
     linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
 }
 
 .dark .data-grid-pattern {
-  background-size: 36px 36px;
+  background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(56, 189, 248, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(56, 189, 248, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(var(--glow-rgb), 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(var(--glow-rgb), 0.07) 1px, transparent 1px);
 }
 
 /* 3D Perspective & Depth */
@@ -65,87 +133,74 @@ html {
   transform-style: preserve-3d;
 }
 
-/* Ultra Rainbow High-Glow Effects */
-.rainbow-glow {
+/* Ultra Dynamic Glow Effects */
+.dynamic-mood-glow {
   position: relative;
 }
 
-.rainbow-glow::before {
+.dynamic-mood-glow::before {
   content: '';
   position: absolute;
   inset: -2px;
-  background: linear-gradient(90deg, #00f0ff, #3b82f6, #8b5cf6, #ec4899, #f59e0b, #10b981, #00f0ff);
-  background-size: 400% 400%;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary), var(--accent-primary));
+  background-size: 300% 300%;
   border-radius: inherit;
   z-index: -1;
-  animation: rainbowBorder 8s ease infinite;
+  animation: dynamicBorder 8s ease infinite;
   opacity: 0.75;
-  filter: blur(8px);
-  transition: opacity 0.3s ease-in-out;
+  filter: blur(10px);
+  transition: opacity 0.3s ease-in-out, filter 0.3s ease-in-out;
 }
 
-.rainbow-glow:hover::before {
+.dynamic-mood-glow:hover::before {
   opacity: 1;
-  filter: blur(14px);
+  filter: blur(16px);
 }
 
-.rainbow-text {
-  background: linear-gradient(135deg, #00f0ff 0%, #3b82f6 25%, #8b5cf6 50%, #ec4899 75%, #10b981 100%);
+.mood-gradient-text {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-tertiary) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: rainbowShine 6s linear infinite;
+  animation: dynamicShine 6s linear infinite;
 }
 
-/* Animated keyframes */
-@keyframes rainbowBorder {
+/* Animations */
+@keyframes dynamicBorder {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-@keyframes rainbowShine {
+@keyframes dynamicShine {
   to {
     background-position: 200% center;
   }
 }
 
-@keyframes floatSmooth {
+@keyframes omniPulse {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: scale(1) rotate(0deg);
+    filter: blur(40px) brightness(1);
   }
-  50% {
-    transform: translateY(-8px) rotate(1deg);
+  33% {
+    transform: scale(1.15) rotate(120deg);
+    filter: blur(48px) brightness(1.25);
   }
-}
-
-@keyframes floatOpposite {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(8px) rotate(-1deg);
+  66% {
+    transform: scale(0.92) rotate(240deg);
+    filter: blur(36px) brightness(0.9);
   }
 }
 
-.animate-float-smooth {
-  animation: floatSmooth 6s ease-in-out infinite;
+.animate-omni-pulse {
+  animation: omniPulse 10s ease-in-out infinite;
 }
 
-.animate-float-opposite {
-  animation: floatOpposite 7s ease-in-out infinite;
-}
-
-/* Glowing Card Hover Physics */
-.glow-card {
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.glow-card:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 20px 40px -15px rgba(0, 240, 255, 0.22), 0 0 25px -5px rgba(139, 92, 246, 0.2);
-}
-
-.dark .glow-card:hover {
-  box-shadow: 0 20px 40px -15px rgba(0, 240, 255, 0.3), 0 0 30px -5px rgba(236, 72, 153, 0.25);
+/* Holographic glass shimmer */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-glow);
 }

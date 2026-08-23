@@ -1,5 +1,6 @@
 import React from 'react';
 import { portfolioData } from '../data/portfolioData';
+import { motion } from 'framer-motion';
 
 interface ProjectFilterProps {
   activeCategory: string;
@@ -22,17 +23,24 @@ export const ProjectFilter: React.FC<ProjectFilterProps> = ({
           <button
             key={cat.slug}
             onClick={() => onSelectCategory(cat.slug)}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 shrink-0 ${
+            className={`relative inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors duration-200 shrink-0 cursor-pointer ${
               isActive
-                ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-md shadow-cyan-500/20 scale-[1.02]'
-                : 'bg-white dark:bg-navy-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-navy-800 hover:border-slate-300 dark:hover:border-navy-700'
+                ? 'text-white font-bold'
+                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-white/80 dark:bg-navy-900/80 border border-slate-200 dark:border-navy-800'
             }`}
           >
+            {isActive && (
+              <motion.div
+                layoutId="activeCategoryPill"
+                className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 shadow-md shadow-cyan-500/25 -z-10"
+                transition={{ type: 'spring', stiffness: 450, damping: 30 }}
+              />
+            )}
             <span>{cat.name}</span>
             <span
               className={`px-1.5 py-0.5 rounded-md text-[10px] font-mono ${
                 isActive
-                  ? 'bg-white/20 text-white font-bold'
+                  ? 'bg-white/25 text-white font-bold'
                   : 'bg-slate-100 dark:bg-navy-800 text-slate-500 dark:text-slate-400'
               }`}
             >

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
+import confetti from 'canvas-confetti';
 import { 
   Mail, 
   Copy, 
@@ -79,10 +80,21 @@ export const Contact: React.FC = () => {
 
       if (response.ok) {
         setSubmitted(true);
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#00f0ff', '#8b5cf6', '#ec4899', '#10b981']
+        });
       } else {
         // Fallback: open mail client with all pre-filled details
         window.location.href = getDirectMailtoUrl();
         setSubmitted(true);
+        confetti({
+          particleCount: 60,
+          spread: 60,
+          origin: { y: 0.6 },
+        });
       }
     } catch {
       // Fallback on network/cors issue
