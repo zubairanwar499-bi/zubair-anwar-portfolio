@@ -114,6 +114,7 @@ export interface PortfolioData {
     subtitle: string;
     positioningStatement: string;
     email: string;
+    phone?: string;
     linkedin: string;
     linkedinDisplay: string;
     github: string;
@@ -137,17 +138,18 @@ export const portfolioData: PortfolioData = {
   personalInfo: {
     name: "Zubair Anwar",
     title: "Data Analyst & Business Intelligence Specialist",
-    headline: "Turning Data Into Decisions That Drive Business.",
-    subtitle: "Data Analyst specializing in Power BI, SQL, Microsoft Fabric, DAX, and business intelligence. I transform complex data into clear dashboards, actionable insights, and scalable analytics solutions.",
-    positioningStatement: "I don't just build dashboards. I build reporting systems that help people understand what is happening, why it is happening, and what they should do next.",
-    email: "zubairanwar499@gmail.com",
+    headline: "Turning Data Into Stories That Drive Smarter Business Decisions.",
+    subtitle: "Passionate Data Analyst with hands-on experience turning raw data into interactive dashboards, predictive models, and actionable insights. Skilled in Power BI, Advanced Excel, SQL, and Python.",
+    positioningStatement: "I specialize in transforming complex multi-source data into clear, interactive dashboards and automated reporting systems that fuel growth, efficiency, and smarter decisions.",
+    email: "Zubairanwar218095@gmail.com",
+    phone: "+92 3433215701",
     linkedin: "https://www.linkedin.com/in/zubair-anwar-56762026a",
-    linkedinDisplay: "linkedin.com/in/zubair-anwar-56762026a",
+    linkedinDisplay: "linkedin.com/in/zubair-anwar",
     github: "https://github.com/zubairanwar499-bi",
     avatarUrl: "/assets/profile.png",
-    location: "Global Remote / Worldwide",
-    availability: "Available for freelance projects, consulting, and full-time opportunities",
-    coreTools: ["Power BI", "Microsoft Fabric", "SQL", "DAX", "Power Query", "Excel", "Python", "Azure"],
+    location: "Islamabad, Pakistan",
+    availability: "Available for Data Analyst roles, freelance BI projects & consulting",
+    coreTools: ["Power BI", "Advanced Excel", "SQL", "Python", "DAX", "Power Query", "AI Tools", "Data Storytelling"],
   },
 
   stats: [
@@ -1240,44 +1242,43 @@ RETURN
 
   experience: [
     {
-      role: "Data Analyst & Business Intelligence Specialist",
-      company: "[Data Analytics & BI Solutions]",
-      location: "Remote / Global",
+      role: "Data Analyst",
+      company: "IntegCubes.Com",
+      location: "Islamabad, Pakistan / Remote",
       period: "2024 - Present",
       isCurrent: true,
-      description: "Designing end-to-end business intelligence systems, automated SQL data pipelines, and interactive Power BI dashboards that turn disparate operational data into executive decision models.",
+      description: "Clean, transform, and model raw data using Power BI to generate actionable business insights and support data-driven decision making.",
       responsibilities: [
-        "Architected scalable Star Schema semantic models across Power BI, Microsoft Fabric, and SQL Server.",
-        "Built 25+ executive and operational dashboards with advanced DAX time-intelligence, What-If parameters, and custom drill-throughs.",
-        "Engineered automated ETL/ELT pipelines replacing manual Excel compilation and reducing reporting cycle times by up to 85%.",
-        "Configured robust Dynamic Row-Level Security (RLS) ensuring strict role-based data governance across global teams.",
-        "Collaborated directly with commercial, HR, finance, and operations stakeholders to define KPIs and deliver data-backed insights."
+        "Clean, transform, and model raw data using Power BI to generate actionable business insights.",
+        "Extract and integrate data from multiple sources including Excel, SQL, data lakes, and data warehouses.",
+        "Develop data models and interactive visualizations to support executive and operational decision-making.",
+        "Solve complex data-related problems efficiently and deliver high-precision results within tight deadlines."
       ],
-      technologies: ["Power BI", "Microsoft Fabric", "SQL", "DAX", "Power Query", "Excel", "Python", "Azure"],
+      technologies: ["Power BI", "SQL", "Excel", "Data Lakes", "Data Warehouses", "DAX", "Power Query"],
       achievements: [
-        "Consolidated 15+ disconnected data sources into a single source of truth for leadership teams.",
-        "Identified pricing leaks and inventory inefficiencies totaling over $300K in recovered value.",
-        "Achieved 100% data refresh reliability across automated reporting pipelines."
+        "Built automated multi-source ETL pipelines integrating SQL databases, data lakes, and Excel spreadsheets.",
+        "Engineered custom Power BI semantic models and interactive executive dashboards with sub-second responsiveness.",
+        "Delivered data-driven reporting solutions on tight turnarounds for cross-functional stakeholders."
       ]
     },
     {
-      role: "Junior Data Analyst / BI Developer",
-      company: "[Technology & Business Services]",
-      location: "Pakistan / Remote",
-      period: "2023 - 2024",
+      role: "Data Analyst & Reporting Specialist",
+      company: "FWO 751 CITY",
+      location: "Pakistan",
+      period: "2024 - 2025",
       isCurrent: false,
-      description: "Supported business reporting and database query optimization, transforming raw transactional datasets into structured analytical views and automated weekly KPI decks.",
+      description: "Managed operational data validation, cleaning, and performance reporting using Advanced Excel and modern data visualization tools.",
       responsibilities: [
-        "Wrote complex SQL queries, views, and CTEs to extract and validate business performance records.",
-        "Developed and maintained department-level Power BI reports for sales and operations teams.",
-        "Performed thorough data cleaning and transformation in Power Query to eliminate manual reconciliation errors.",
-        "Conducted exploratory data analysis in Python and Excel to uncover operational trends and anomalies."
+        "Performed rigorous data entry, validation, and automated cleaning using Advanced Excel formulas and pivot tables.",
+        "Created and maintained structured reporting systems to track key performance metrics across operations.",
+        "Assisted in data visualization and KPI report generation using analytics tools to support organizational objectives.",
+        "Ensured data consistency, accuracy, and audit-ready reporting across department records."
       ],
-      technologies: ["SQL Server", "Power BI", "Power Query", "Excel", "Python (Pandas)", "PostgreSQL"],
+      technologies: ["Advanced Excel", "Pivot Tables", "Formulas & Macros", "Data Validation", "Data Cleaning", "KPI Reporting"],
       achievements: [
-        "Automated weekly executive reporting packs, saving 12+ manual hours each week.",
-        "Authored comprehensive data dictionary and documentation for core semantic models.",
-        "Optimized query runtimes on heavy transactional datasets by over 40% through indexing and restructuring."
+        "Streamlined daily and monthly performance reporting, reducing manual data compilation time.",
+        "Standardized validation checks, eliminating spreadsheet errors and data inconsistencies across team metrics.",
+        "Collaborated with project managers to create actionable visual summaries for management reviews."
       ]
     }
   ],
@@ -1285,79 +1286,79 @@ RETURN
   services: [
     {
       id: "power-bi",
-      title: "Power BI Development",
+      title: "Power BI Development & Dashboards",
       icon: "BarChart3",
       description: "Custom interactive dashboards, executive KPI scorecards, mobile-optimized layouts, and advanced DAX modeling built for rapid business insight.",
       deliverables: [
         "Executive & Operational Dashboards",
         "Advanced DAX Measures & Time Intelligence",
         "Clean UX, Visual Hierarchy & Drill-throughs",
-        "Dynamic Row-Level Security (RLS)"
+        "Multi-source Data Integration"
       ],
       suitableFor: "Companies seeking clear, interactive dashboards that replace static reports and drive fast leadership decisions."
     },
     {
       id: "data-analysis",
-      title: "Data Analysis & Insights",
+      title: "Data Analysis & Business Storytelling",
       icon: "LineChart",
-      description: "Thorough exploratory analysis, variance tracking, trend discovery, and root-cause investigation to answer the 'why' behind your business numbers.",
+      description: "Thorough exploratory analysis, variance tracking, trend discovery, and root-cause investigation to turn raw numbers into clear business stories.",
       deliverables: [
         "Exploratory Data Analysis (EDA)",
-        "Variance & Root-Cause Investigation",
-        "Executive Summary Reports & Presentations",
+        "Predictive Modeling & Trend Analysis",
+        "Visual Data Storytelling & Infographics",
         "Actionable Business Recommendations"
       ],
-      suitableFor: "Organizations looking to understand operational bottlenecks, revenue leaks, or customer behavior trends."
+      suitableFor: "Organizations looking to understand operational bottlenecks, revenue trends, or customer behavior."
     },
     {
       id: "sql-analytics",
-      title: "SQL Querying & Data Marts",
+      title: "SQL Querying & Data Extraction",
       icon: "Database",
-      description: "Writing complex, performant SQL queries, CTEs, stored procedures, and creating organized analytical data marts for reliable reporting.",
+      description: "Writing complex, performant SQL queries, data manipulation scripts, and creating organized analytical views for reliable reporting.",
       deliverables: [
         "Complex SQL Queries & CTEs",
         "Analytical Views & Stored Procedures",
-        "Query Performance Optimization & Tuning",
-        "Schema Design & Normalization"
+        "Multi-table Data Extraction & Joins",
+        "Database Cleaning & Transformation"
       ],
       suitableFor: "Businesses needing structured, fast-running SQL layers that power business applications and BI tools."
     },
     {
-      id: "microsoft-fabric",
-      title: "Microsoft Fabric & Lakehouse",
+      id: "excel-automation",
+      title: "Advanced Excel & Data Cleaning",
       icon: "Layers",
-      description: "Modern analytics architecture using Microsoft Fabric Lakehouses, Warehouses, Delta Parquet tables, and Direct Lake Power BI models.",
+      description: "Automated Excel financial models, advanced pivot tables, dynamic lookup formulas, and automated validation scripts that eliminate manual work.",
       deliverables: [
-        "Fabric Lakehouse & Medallion Architecture",
-        "Data Factory Ingestion Pipelines",
-        "Direct Lake Semantic Models (Sub-second)",
-        "PySpark Data Transformation Notebooks"
+        "Advanced Formulas & Dynamic Arrays",
+        "Power Pivot & Power Query Automation",
+        "Automated Data Cleaning & Validation",
+        "Executive Financial & Operational Sheets"
       ],
-      suitableFor: "Enterprises adopting the Microsoft unified modern data stack for high-scale, zero-copy analytics."
+      suitableFor: "Teams spending hours every week manually compiling, cleaning, and formatting Excel workbooks."
     },
     {
-      id: "dashboard-automation",
-      title: "Dashboard & Reporting Automation",
+      id: "ai-automation",
+      title: "AI Tools & Automation for Analytics",
       icon: "Zap",
-      description: "Eliminate repetitive manual Excel workbooks by building fully automated, scheduled reporting pipelines that refresh without manual intervention.",
+      description: "Leveraging modern AI tools and Python scripting for automated data extraction, feature enhancement, text parsing, and analytical workflows.",
       deliverables: [
-        "Automated Data Ingestion & Refresh",
-        "Excel-to-Power BI Migration",
-        "Error Logging & Alerting Triggers",
-        "Scheduled Email Subscriptions & Alerts"
+        "Python Data Automation Scripts",
+        "AI-assisted Data Enhancement",
+        "Automated Scheduled Reporting",
+        "Data Pipeline Optimization"
       ],
-      suitableFor: "Teams spending hours every week manually copy-pasting data across spreadsheets for management updates."
+      suitableFor: "Modern enterprises seeking to accelerate data engineering and reporting cycles with cutting-edge AI."
     },
     {
       id: "data-modeling",
-      title: "Semantic Data Modeling",
+      title: "Semantic Data Modeling & Warehousing",
       icon: "Network",
-      description: "Building resilient Star Schema models following Kimball methodology to ensure calculation consistency, audit readiness, and maximum performance.",
+      description: "Building resilient Star Schema models connecting data lakes, data warehouses, SQL databases, and flat files for unified reporting truth.",
       deliverables: [
         "Star & Snowflake Schema Design",
         "Fact & Dimension Table Definition",
         "Relationship & Cardinality Optimization",
-        "Standardized Metric Definitions"
+        "Single-source-of-truth Architecture"
       ],
       suitableFor: "Companies suffering from slow, inaccurate, or conflicting numbers across different departments."
     }
@@ -1372,26 +1373,26 @@ RETURN
     },
     {
       title: "Technical Depth",
-      subtitle: "Power BI, SQL, Fabric & DAX",
-      description: "Strong hands-on mastery in writing complex DAX formulas, optimizing heavy SQL queries, building Lakehouses, and managing scalable data pipelines.",
+      subtitle: "Power BI, Excel, SQL & Python",
+      description: "Strong hands-on mastery in writing complex DAX formulas, optimizing SQL queries, building data models, and automating data pipelines.",
       icon: "Code2"
     },
     {
       title: "Scalable Architecture",
-      subtitle: "Built to Grow",
-      description: "Solutions are designed using industry-standard Star Schemas and modular pipelines that expand seamlessly as your data volume multiplies.",
+      subtitle: "Data Lakes & Warehouses",
+      description: "Experience connecting and modeling data across multiple platforms: SQL, Excel, Data Lakes, Data Warehouses, and REST feeds.",
       icon: "TrendingUp"
     },
     {
       title: "Rigorous Data Quality",
       subtitle: "Zero Reconciliation Errors",
-      description: "Data validation, reconciliation checks, and null handling are treated as non-negotiable foundations of every reporting system I deliver.",
+      description: "Data validation, reconciliation checks, and automated cleaning are treated as non-negotiable foundations of every reporting system I deliver.",
       icon: "CheckCircle2"
     },
     {
-      title: "Enterprise Security & RLS",
-      subtitle: "Protected Confidentiality",
-      description: "Expert implementation of Dynamic Row-Level Security (RLS) ensuring each department or manager views only their authorized slice of data.",
+      title: "Creative Storytelling",
+      subtitle: "Visual Design & Content Creation",
+      description: "Background in graphic design and visual storytelling ensuring intuitive UI/UX, clear visual hierarchy, and compelling executive communication.",
       icon: "Lock"
     },
     {
@@ -1404,36 +1405,68 @@ RETURN
 
   certifications: [
     {
-      title: "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
-      issuer: "Microsoft",
-      date: "[2024 / Certified]",
-      status: "Certified",
-      description: "Demonstrates advanced proficiency in preparing data, modeling data, visualizing and analyzing data, and deploying and maintaining assets in Power BI.",
-      skills: ["Power BI", "DAX", "Power Query", "Data Modeling", "Row-Level Security", "Power BI Service"]
-    },
-    {
-      title: "Microsoft Certified: Fabric Analytics Engineer Associate (DP-600)",
-      issuer: "Microsoft",
-      date: "[2024 / In Progress / Certified]",
-      status: "In Progress",
-      description: "Validates technical skills in designing, creating, and deploying enterprise-scale data analytics solutions using Microsoft Fabric and Delta Lake.",
-      skills: ["Microsoft Fabric", "Lakehouse", "Warehouse", "PySpark", "Direct Lake", "Data Factory"]
-    },
-    {
-      title: "Advanced SQL for Data Analytics & Data Engineering",
-      issuer: "[Professional Analytics Certification]",
-      date: "[2023 / Certified]",
-      status: "Certified",
-      description: "Comprehensive mastery of relational database design, complex joins, subqueries, CTEs, window functions, and query optimization.",
-      skills: ["SQL", "PostgreSQL", "T-SQL", "Relational Database Design", "Window Functions"]
-    },
-    {
-      title: "Bachelor's Degree in Computer Science / Information Technology",
-      issuer: "[University Name / Degree Placeholder]",
-      date: "[Graduation Year]",
+      title: "BS in Computer Science (BSCS)",
+      issuer: "Abdul Wali Khan University Mardan",
+      date: "2020 - 2024",
       status: "Completed",
-      description: "Core foundation in algorithms, database management systems, data structures, software engineering, and computational analysis.",
-      skills: ["Database Systems", "Software Engineering", "Mathematics & Statistics", "Python"]
+      description: "4-Year Bachelor of Science in Computer Science with focus on Database Management Systems, Data Structures, Algorithms, Software Engineering, and Python.",
+      skills: ["Database Systems", "SQL", "Python", "Data Structures", "Algorithms", "Software Engineering"]
+    },
+    {
+      title: "Microsoft Power BI",
+      issuer: "UniAthena Institute",
+      date: "2024",
+      status: "Certified",
+      description: "Professional certification covering end-to-end Power BI report design, data modeling, DAX time-intelligence calculations, and dashboard publication.",
+      skills: ["Power BI", "DAX", "Data Modeling", "Power Query", "Interactive Dashboards"]
+    },
+    {
+      title: "Power BI Basic Course",
+      issuer: "Satish Dhawale",
+      date: "2024",
+      status: "Certified",
+      description: "Hands-on certification in Power BI fundamentals, data transformation workflows, visual design principles, and report formatting.",
+      skills: ["Power BI", "Data Cleaning", "Data Visualization", "Power Query"]
+    },
+    {
+      title: "Web Development",
+      issuer: "DigiSkills Training Program",
+      date: "2024",
+      status: "Certified",
+      description: "Comprehensive training in web architecture, responsive user interface design, front-end development, and modern digital platforms.",
+      skills: ["Web Development", "Responsive UI", "HTML/CSS", "JavaScript"]
+    },
+    {
+      title: "Graphic Design Course",
+      issuer: "DigiSkills Training Program",
+      date: "2024",
+      status: "Certified",
+      description: "Visual design hierarchy, color theory, typography, infographics, and graphic design principles for visual data storytelling.",
+      skills: ["Graphic Design", "Data Storytelling", "Visual Design", "UI/UX"]
+    },
+    {
+      title: "Digital Marketing",
+      issuer: "DigiSkills Training Program",
+      date: "2023",
+      status: "Certified",
+      description: "Performance metrics tracking, campaign analytics, conversion funnels, audience segmentation, and ROI measurement.",
+      skills: ["Digital Marketing", "Marketing Analytics", "Performance Metrics", "Audience Insights"]
+    },
+    {
+      title: "Business Communication",
+      issuer: "DigiSkills Training Program",
+      date: "2023",
+      status: "Certified",
+      description: "Executive presentation skills, technical reporting, cross-functional stakeholder communication, and professional writing.",
+      skills: ["Business Communication", "Executive Presentation", "Technical Writing"]
+    },
+    {
+      title: "QuickBooks & Financial Recordkeeping",
+      issuer: "DigiSkills Training Program",
+      date: "2023",
+      status: "Certified",
+      description: "Financial data entry, ledger reconciliation, profit & loss statement generation, and accounting workflow management.",
+      skills: ["QuickBooks", "Financial Data", "Reconciliation", "Accounting Workflow"]
     }
   ]
 };

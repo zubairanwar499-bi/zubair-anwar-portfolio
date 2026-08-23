@@ -233,6 +233,25 @@ export const Contact: React.FC = () => {
                 <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-cyan-500 group-hover:translate-x-0.5 transition-all" />
               </a>
 
+              {/* Direct Phone / Call */}
+              <a
+                href="tel:+923433215701"
+                className="p-3.5 rounded-2xl bg-slate-50 dark:bg-navy-850 border border-slate-200/70 dark:border-navy-800 flex items-center justify-between gap-3 hover:border-cyan-500/50 transition-colors group"
+              >
+                <div className="flex items-center gap-3 overflow-hidden">
+                  <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0 group-hover:scale-110 transition-transform">
+                    <MessageSquareCode className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono text-slate-400 block">Direct Phone / Call</span>
+                    <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-cyan-500 truncate block">
+                      +92 3433215701
+                    </span>
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-cyan-500 group-hover:translate-x-0.5 transition-all" />
+              </a>
+
             </div>
 
           </div>
