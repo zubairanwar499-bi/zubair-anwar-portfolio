@@ -22,7 +22,7 @@ export const Credibility: React.FC = () => {
   };
 
   return (
-    <section id="credibility" className="py-24 bg-slate-50/70 dark:bg-navy-950/70 relative overflow-hidden">
+    <section id="credibility" className="py-24 bg-slate-50/70 dark:bg-navy-950/70 relative overflow-hidden scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

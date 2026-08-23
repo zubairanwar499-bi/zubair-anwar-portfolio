@@ -27,35 +27,37 @@ export const DashboardMock: React.FC<DashboardMockProps> = ({
     <div className="relative w-full rounded-2xl bg-slate-900 text-white border border-slate-700/80 shadow-xl overflow-hidden font-sans group">
       
       {/* Power BI Top Ribbon / Header Bar */}
-      <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-slate-950 border-b border-slate-800 text-xs">
-        <div className="flex items-center gap-2">
-          <div className="w-2.5 h-2.5 rounded-full bg-amber-400"></div>
-          <span className="font-semibold text-slate-200 truncate max-w-[200px] sm:max-w-xs">
+      <div className="flex items-center justify-between px-2.5 sm:px-4 py-2 sm:py-2.5 bg-slate-950 border-b border-slate-800 text-xs gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
+          <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400 shrink-0"></div>
+          <span className="font-semibold text-slate-200 truncate text-[11px] sm:text-xs">
             {project.title}
           </span>
-          <span className="hidden sm:inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-950 text-cyan-400 border border-cyan-800">
-            Power BI Enterprise Report
+          <span className="hidden md:inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-950 text-cyan-400 border border-cyan-800 shrink-0">
+            Power BI
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 shrink-0">
           {image && (
-            <div className="flex items-center bg-slate-800 p-0.5 rounded-lg border border-slate-700 text-[10px] font-mono">
+            <div className="flex items-center bg-slate-800/90 p-0.5 rounded-lg border border-slate-700 text-[9px] sm:text-[10px] font-mono">
               <button
                 onClick={() => setViewMode('image')}
-                className={`px-2 py-0.5 rounded-md transition-colors ${
-                  viewMode === 'image' ? 'bg-cyan-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
+                className={`px-1.5 sm:px-2 py-0.5 rounded-md transition-colors cursor-pointer ${
+                  viewMode === 'image' ? 'bg-cyan-500 text-slate-950 font-bold shadow-xs' : 'text-slate-400 hover:text-white'
                 }`}
               >
-                Dashboard UI
+                <span className="sm:hidden">UI</span>
+                <span className="hidden sm:inline">Dashboard UI</span>
               </button>
               <button
                 onClick={() => setViewMode('interactive')}
-                className={`px-2 py-0.5 rounded-md transition-colors ${
-                  viewMode === 'interactive' ? 'bg-cyan-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
+                className={`px-1.5 sm:px-2 py-0.5 rounded-md transition-colors cursor-pointer ${
+                  viewMode === 'interactive' ? 'bg-cyan-500 text-slate-950 font-bold shadow-xs' : 'text-slate-400 hover:text-white'
                 }`}
               >
-                Live Metrics
+                <span className="sm:hidden">Live</span>
+                <span className="hidden sm:inline">Live Metrics</span>
               </button>
             </div>
           )}

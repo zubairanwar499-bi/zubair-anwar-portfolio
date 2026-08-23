@@ -115,26 +115,26 @@ RETURN
         <div className="relative rounded-3xl bg-white/95 dark:bg-navy-900/95 backdrop-blur-2xl border border-slate-200/90 dark:border-navy-700/90 shadow-2xl p-5 sm:p-6 overflow-hidden dynamic-mood-glow">
           
           {/* Top Window Bar */}
-          <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100 dark:border-navy-800">
-            <div className="flex items-center gap-2">
-              <div className="flex gap-1.5">
-                <span className="w-3 h-3 rounded-full bg-rose-500 inline-block shadow-sm shadow-rose-500/50"></span>
-                <span className="w-3 h-3 rounded-full bg-amber-500 inline-block shadow-sm shadow-amber-500/50"></span>
-                <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block shadow-sm shadow-emerald-500/50"></span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3.5 mb-4 border-b border-slate-100 dark:border-navy-800 gap-2.5">
+            <div className="flex items-center gap-2 min-w-0">
+              <div className="flex gap-1.5 shrink-0">
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block shadow-sm shadow-rose-500/50"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block shadow-sm shadow-amber-500/50"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block shadow-sm shadow-emerald-500/50"></span>
               </div>
-              <span className="ml-2 text-xs font-mono font-bold text-slate-600 dark:text-slate-300">
-                Microsoft Fabric // Power BI Semantic Model
+              <span className="ml-1 text-[11px] sm:text-xs font-mono font-bold text-slate-600 dark:text-slate-300 truncate">
+                Microsoft Fabric // Power BI Model
               </span>
             </div>
 
-            <div className="flex items-center gap-1 bg-slate-100 dark:bg-navy-850 p-1 rounded-xl border border-slate-200/60 dark:border-navy-750">
+            <div className="flex items-center gap-1 bg-slate-100 dark:bg-navy-850 p-1 rounded-xl border border-slate-200/60 dark:border-navy-750 self-start sm:self-auto shrink-0">
               {tabs.map((tab) => {
                 const isActive = activeTab === tab.id;
                 return (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`relative px-2.5 py-1 text-xs font-semibold rounded-lg transition-colors cursor-pointer ${
+                    className={`relative px-2 sm:px-2.5 py-1 text-[11px] sm:text-xs font-semibold rounded-lg transition-colors cursor-pointer ${
                       isActive
                         ? 'text-white font-bold'
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -287,21 +287,21 @@ RETURN
                   exit="exit"
                   className="space-y-3"
                 >
-                  <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-mono">
-                    <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 font-mono">
+                    <div className="flex flex-wrap items-center gap-1.5">
                       <button
                         onClick={() => setDaxFormula('nrr')}
-                        className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
+                        className={`px-2 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold transition-all cursor-pointer ${
                           daxFormula === 'nrr'
                             ? 'bg-purple-500/20 text-purple-400 border border-purple-500/50 shadow-xs'
                             : 'text-slate-400 hover:text-slate-200'
                         }`}
                       >
-                        Net Revenue Retention (NRR) %
+                        NRR %
                       </button>
                       <button
                         onClick={() => setDaxFormula('yoy')}
-                        className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
+                        className={`px-2 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold transition-all cursor-pointer ${
                           daxFormula === 'yoy'
                             ? 'bg-purple-500/20 text-purple-400 border border-purple-500/50 shadow-xs'
                             : 'text-slate-400 hover:text-slate-200'
@@ -313,7 +313,7 @@ RETURN
 
                     <button
                       onClick={handleCopy}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-navy-800 text-slate-700 dark:text-slate-300 hover:text-cyan-400 text-xs font-mono transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-navy-800 text-slate-700 dark:text-slate-300 hover:text-cyan-400 text-[11px] font-mono transition-colors cursor-pointer"
                       title="Copy DAX to clipboard"
                     >
                       {copied ? (
