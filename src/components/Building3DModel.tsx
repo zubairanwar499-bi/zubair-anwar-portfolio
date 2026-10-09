@@ -165,13 +165,13 @@ export const Building3DModel: React.FC = () => {
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
-    // 2. Camera Setup (Isometric Perspective)
+    // 2. Camera Setup (Elevated Isometric Perspective)
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 1000);
     camera.position.set(0, 16, 24);
     camera.lookAt(0, 0, 0);
     cameraRef.current = camera;
 
-    // 3. WebGL Renderer with High Dynamic Range & Shadows
+    // 3. WebGL Renderer with High Quality
     const renderer = new THREE.WebGLRenderer({ 
       antialias: true, 
       alpha: true,
@@ -186,7 +186,7 @@ export const Building3DModel: React.FC = () => {
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // 4. Rich Cinematic Studio Lighting
+    // 4. Studio Lighting System
     const ambientLight = new THREE.AmbientLight(0xfff7ed, 1.8);
     scene.add(ambientLight);
 
@@ -197,22 +197,18 @@ export const Building3DModel: React.FC = () => {
     sunLight.shadow.mapSize.height = 1024;
     scene.add(sunLight);
 
-    // Warm Architectural Cove Light
     const warmCove = new THREE.DirectionalLight(0xfbbf24, 1.2);
     warmCove.position.set(-12, 18, 12);
     scene.add(warmCove);
 
-    // Cyan Neon Command Center Light
     const cyanPoint = new THREE.PointLight(0x00f0ff, 4.5, 35);
     cyanPoint.position.set(0, 5, -1.5);
     scene.add(cyanPoint);
 
-    // Blue Database Server Light
     const bluePoint = new THREE.PointLight(0x3b82f6, 3.5, 25);
     bluePoint.position.set(-5.8, 4, -4.5);
     scene.add(bluePoint);
 
-    // Amber Power BI Light
     const amberPoint = new THREE.PointLight(0xf59e0b, 3.8, 25);
     amberPoint.position.set(5.8, 4, -4.5);
     scene.add(amberPoint);
@@ -222,7 +218,7 @@ export const Building3DModel: React.FC = () => {
     scene.add(modelGroup);
     modelGroupRef.current = modelGroup;
 
-    // Foundation Base (Dark Titanium with Warm Architectural Bevel)
+    // Foundation Base
     const baseGeo = new THREE.BoxGeometry(18, 0.8, 16);
     const baseMat = new THREE.MeshStandardMaterial({ 
       color: 0x181e2b, 
@@ -241,17 +237,16 @@ export const Building3DModel: React.FC = () => {
     trimMesh.position.y = 0.01;
     modelGroup.add(trimMesh);
 
-    // Detailed Multi-Zone Architectural Floor (Warm Wood, Marble, & High-Tech Grid)
+    // Detailed Multi-Zone Architectural Floor
     const floorCanvas = document.createElement('canvas');
     floorCanvas.width = 1024;
     floorCanvas.height = 1024;
     const fCtx = floorCanvas.getContext('2d');
     if (fCtx) {
-      // Base dark graphite floor
       fCtx.fillStyle = '#111827';
       fCtx.fillRect(0, 0, 1024, 1024);
 
-      // Central Command Room Ring (Dark polished marble)
+      // Central Command Room Ring
       fCtx.fillStyle = '#0b1120';
       fCtx.beginPath();
       fCtx.arc(512, 420, 220, 0, Math.PI * 2);
@@ -260,7 +255,7 @@ export const Building3DModel: React.FC = () => {
       fCtx.lineWidth = 6;
       fCtx.stroke();
 
-      // Python Lab (Warm rich parquet wood floor)
+      // Python Lab (Wood parquet)
       fCtx.fillStyle = '#451a03';
       fCtx.fillRect(80, 540, 360, 400);
       fCtx.strokeStyle = '#78350f';
@@ -272,14 +267,14 @@ export const Building3DModel: React.FC = () => {
         fCtx.stroke();
       }
 
-      // Asset Library Meeting Room (Slate warm carpet)
+      // Asset Library Room (Slate warm carpet)
       fCtx.fillStyle = '#1e293b';
       fCtx.fillRect(580, 540, 360, 400);
       fCtx.strokeStyle = 'rgba(139, 92, 246, 0.3)';
       fCtx.lineWidth = 4;
       fCtx.strokeRect(600, 560, 320, 360);
 
-      // Database Server Room (High-tech grid floor)
+      // Database Server Room (High-tech server tiles)
       fCtx.fillStyle = '#030712';
       fCtx.fillRect(80, 80, 360, 400);
       fCtx.strokeStyle = 'rgba(59, 130, 246, 0.3)';
@@ -295,7 +290,7 @@ export const Building3DModel: React.FC = () => {
         fCtx.stroke();
       }
 
-      // Power BI Room (Crisp modern flooring)
+      // Power BI Room (Modern tile)
       fCtx.fillStyle = '#1f2937';
       fCtx.fillRect(580, 80, 360, 400);
       fCtx.strokeStyle = 'rgba(245, 158, 11, 0.3)';
@@ -319,7 +314,7 @@ export const Building3DModel: React.FC = () => {
     floorMesh.receiveShadow = true;
     modelGroup.add(floorMesh);
 
-    // Architectural Dark Concrete & Wood Cutaway Walls
+    // Architectural Walls with Warm Wood & LED Cove Trim
     const wallMat = new THREE.MeshStandardMaterial({
       color: 0x222a38,
       roughness: 0.35,
@@ -351,20 +346,20 @@ export const Building3DModel: React.FC = () => {
       return mesh;
     };
 
-    // Outer Back & Side Walls
-    addWall(18, 4.4, 0.5, 0, 2.2, -7.8);      // Back wall
-    addWall(0.5, 4.4, 16, -8.8, 2.2, 0);      // Left wall
-    addWall(0.5, 4.4, 16, 8.8, 2.2, 0);       // Right wall
-    addWall(5.5, 2.4, 0.5, -6, 1.2, 7.8, true);     // Front left cut wall (Wood)
-    addWall(5.5, 2.4, 0.5, 6, 1.2, 7.8, true);      // Front right cut wall (Wood)
+    // Exterior Back & Side Walls
+    addWall(18, 4.4, 0.5, 0, 2.2, -7.8);
+    addWall(0.5, 4.4, 16, -8.8, 2.2, 0);
+    addWall(0.5, 4.4, 16, 8.8, 2.2, 0);
+    addWall(5.5, 2.4, 0.5, -6, 1.2, 7.8, true);
+    addWall(5.5, 2.4, 0.5, 6, 1.2, 7.8, true);
 
     // Interior Room Partitions
-    addWall(0.4, 3.8, 6, -2.5, 1.9, -4.8);   // Pipeline room right wall
-    addWall(0.4, 3.8, 6, 2.5, 1.9, -4.8);    // Power BI room left wall
-    addWall(6, 3.0, 0.4, -5.8, 1.5, 0.5, true);    // Python room front wall (Wood)
-    addWall(6, 3.0, 0.4, 5.8, 1.5, 0.5);     // Asset library front wall
+    addWall(0.4, 3.8, 6, -2.5, 1.9, -4.8);
+    addWall(0.4, 3.8, 6, 2.5, 1.9, -4.8);
+    addWall(6, 3.0, 0.4, -5.8, 1.5, 0.5, true);
+    addWall(6, 3.0, 0.4, 5.8, 1.5, 0.5);
 
-    // Glowing Holographic Wall Banner: "ZUBAIR ANWAR • DATA ANALYST"
+    // Wall Sign: "ZUBAIR ANWAR • DATA ANALYST"
     const signCanvas = document.createElement('canvas');
     signCanvas.width = 1024;
     signCanvas.height = 160;
@@ -397,20 +392,16 @@ export const Building3DModel: React.FC = () => {
     signMesh.position.set(0, 3.8, -7.5);
     modelGroup.add(signMesh);
 
-    // ==========================================
-    // 1. Central Command: Ultra-Wide Curved Cockpit Screen
-    // ==========================================
+    // 1. Central Command: Curved Ultra-Wide Screen
     const curveGeo = new THREE.CylinderGeometry(5.2, 5.2, 2.8, 32, 1, true, -Math.PI * 0.4, Math.PI * 0.8);
     const dashCanvas = document.createElement('canvas');
     dashCanvas.width = 2048;
     dashCanvas.height = 1024;
     const dCtx = dashCanvas.getContext('2d');
     if (dCtx) {
-      // Dark command screen background
       dCtx.fillStyle = '#020617';
       dCtx.fillRect(0, 0, 2048, 1024);
 
-      // Top 4 Large KPI Metric Cards (As in reference image)
       const kpiData = [
         { label: 'ENTERPRISE ARR', val: '12.4M', change: '+12%', color: '#00f0ff' },
         { label: 'ACTIVE USERS', val: '8,540', change: '+8%', color: '#38bdf8' },
@@ -439,7 +430,7 @@ export const Building3DModel: React.FC = () => {
         dCtx.fillText(kpi.change, x + 300, 185);
       });
 
-      // Left: Big Area / Sparkline Graph
+      // Area Chart
       dCtx.strokeStyle = '#00f0ff';
       dCtx.lineWidth = 6;
       dCtx.beginPath();
@@ -450,7 +441,7 @@ export const Building3DModel: React.FC = () => {
       }
       dCtx.stroke();
 
-      // Right: High-Resolution World Map Graphic Mock
+      // World Map Dots
       dCtx.fillStyle = 'rgba(56, 189, 248, 0.6)';
       for (let i = 0; i < 90; i++) {
         const mx = 1080 + (i * 37) % 860;
@@ -460,14 +451,14 @@ export const Building3DModel: React.FC = () => {
         dCtx.fill();
       }
 
-      // Bottom Bar Chart & Donut Chart
+      // Bar Chart
       const bars = [90, 140, 190, 260, 220, 310, 380, 290];
       bars.forEach((b, i) => {
         dCtx.fillStyle = i % 2 === 0 ? '#3b82f6' : '#00f0ff';
         dCtx.fillRect(100 + i * 110, 940 - b, 80, b);
       });
 
-      // Colorful Donut Chart
+      // Donut Chart
       dCtx.beginPath();
       dCtx.arc(1500, 820, 110, 0, Math.PI * 2);
       dCtx.strokeStyle = '#f59e0b';
@@ -489,7 +480,7 @@ export const Building3DModel: React.FC = () => {
     curvedScreen.position.set(0, 2.3, -4.5);
     modelGroup.add(curvedScreen);
 
-    // Circular Console Ring Desk with Chairs
+    // Central Console Desk & Neon Ring
     const consoleGeo = new THREE.CylinderGeometry(2.5, 2.5, 0.5, 32, 1, true, 0, Math.PI);
     const consoleMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.3, metalness: 0.8 });
     const consoleDesk = new THREE.Mesh(consoleGeo, consoleMat);
@@ -497,7 +488,6 @@ export const Building3DModel: React.FC = () => {
     consoleDesk.rotation.y = Math.PI;
     modelGroup.add(consoleDesk);
 
-    // Glowing Neon Ring Under Console
     const underRingGeo = new THREE.TorusGeometry(2.55, 0.06, 12, 32);
     const underRingMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
     const underRing = new THREE.Mesh(underRingGeo, underRingMat);
@@ -505,7 +495,7 @@ export const Building3DModel: React.FC = () => {
     underRing.position.set(0, 0.1, -1.2);
     modelGroup.add(underRing);
 
-    // Central Glowing Holographic Data Cube
+    // Central Data Core Cube
     const coreGeo = new THREE.BoxGeometry(1.1, 1.1, 1.1);
     const coreMat = new THREE.MeshStandardMaterial({ 
       color: 0x00f0ff, 
@@ -517,33 +507,27 @@ export const Building3DModel: React.FC = () => {
     coreCube.position.set(0, 1.2, 2.2);
     modelGroup.add(coreCube);
 
-    // ==========================================
-    // 2. Power BI Studio: Large Yellow-Accented BI Screen & 3D Logo
-    // ==========================================
+    // 2. Power BI Studio: Screen & Gold 3D Logo
     const pbiCanvas = document.createElement('canvas');
     pbiCanvas.width = 1024;
     pbiCanvas.height = 640;
     const pCtx = pbiCanvas.getContext('2d');
     if (pCtx) {
-      // White clean Power BI canvas
       pCtx.fillStyle = '#ffffff';
       pCtx.fillRect(0, 0, 1024, 640);
 
-      // Yellow top title header
       pCtx.fillStyle = '#f59e0b';
       pCtx.fillRect(0, 0, 1024, 70);
       pCtx.font = 'bold 36px sans-serif';
       pCtx.fillStyle = '#1e293b';
       pCtx.fillText('Power BI Executive Report | Net Retention', 40, 48);
 
-      // Power BI Golden Bar Chart
       const pBars = [120, 180, 240, 310, 270, 380, 420];
       pBars.forEach((h, i) => {
         pCtx.fillStyle = '#f59e0b';
         pCtx.fillRect(60 + i * 80, 480 - h, 60, h);
       });
 
-      // Line Chart on top
       pCtx.strokeStyle = '#10b981';
       pCtx.lineWidth = 5;
       pCtx.beginPath();
@@ -554,7 +538,6 @@ export const Building3DModel: React.FC = () => {
       }
       pCtx.stroke();
 
-      // Matrix Table Rows
       pCtx.fillStyle = '#f1f5f9';
       pCtx.fillRect(680, 380, 300, 180);
       pCtx.fillStyle = '#334155';
@@ -570,7 +553,6 @@ export const Building3DModel: React.FC = () => {
     pbiScreen.position.set(5.8, 2.5, -7.45);
     modelGroup.add(pbiScreen);
 
-    // 3D Power BI Gold Insignia on Wall
     const pbiLogoGeo = new THREE.BoxGeometry(0.8, 1.2, 0.1);
     const pbiLogoMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.9, roughness: 0.2 });
     const pbiLogo = new THREE.Mesh(pbiLogoGeo, pbiLogoMat);
@@ -578,16 +560,13 @@ export const Building3DModel: React.FC = () => {
     pbiLogo.rotation.y = -Math.PI / 2;
     modelGroup.add(pbiLogo);
 
-    // Power BI Desk
     const pbiDeskGeo = new THREE.BoxGeometry(4.2, 0.6, 1.2);
     const pbiDeskMat = new THREE.MeshStandardMaterial({ color: 0x27272a, roughness: 0.4 });
     const pbiDesk = new THREE.Mesh(pbiDeskGeo, pbiDeskMat);
     pbiDesk.position.set(5.8, 0.6, -5.2);
     modelGroup.add(pbiDesk);
 
-    // ==========================================
-    // 3. Database Pipeline: Translucent Tanks & Server Racks
-    // ==========================================
+    // 3. Database Cylinders & Server Racks
     const tankGeo = new THREE.CylinderGeometry(0.75, 0.75, 2.2, 24);
     const tankMat = new THREE.MeshStandardMaterial({ 
       color: 0x0284c7, 
@@ -604,7 +583,6 @@ export const Building3DModel: React.FC = () => {
     tank2.position.set(-4.5, 1.1, -4.8);
     modelGroup.add(tank2);
 
-    // Bright Glowing Rings Around Tanks
     const ringGeo = new THREE.TorusGeometry(0.77, 0.05, 12, 24);
     const ringMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
     const r1 = new THREE.Mesh(ringGeo, ringMat);
@@ -617,7 +595,6 @@ export const Building3DModel: React.FC = () => {
     r2.position.set(-4.5, 1.7, -4.8);
     modelGroup.add(r2);
 
-    // Server Racks with Blinking LED Textures
     const rackCanvas = document.createElement('canvas');
     rackCanvas.width = 256;
     rackCanvas.height = 512;
@@ -643,15 +620,12 @@ export const Building3DModel: React.FC = () => {
     rack1.position.set(-7.8, 1.7, -4.8);
     modelGroup.add(rack1);
 
-    // ==========================================
-    // 4. Python Analytics Room: 3D Python Logo & Code Monitors
-    // ==========================================
+    // 4. Python Lab: Monitors & 3D Logo
     const pyDeskGeo = new THREE.BoxGeometry(3.6, 0.6, 1.2);
     const pyDesk = new THREE.Mesh(pyDeskGeo, pbiDeskMat);
     pyDesk.position.set(-5.5, 0.6, 4.2);
     modelGroup.add(pyDesk);
 
-    // Dual Python Monitors (Code + Scatter Chart)
     const codeCanvas = document.createElement('canvas');
     codeCanvas.width = 512;
     codeCanvas.height = 256;
@@ -677,7 +651,6 @@ export const Building3DModel: React.FC = () => {
     codeScreen.position.set(-5.5, 1.8, 4.7);
     modelGroup.add(codeScreen);
 
-    // 3D Python Yellow & Blue Insignia on Wall
     const pyLogoCanvas = document.createElement('canvas');
     pyLogoCanvas.width = 256;
     pyLogoCanvas.height = 256;
@@ -685,11 +658,11 @@ export const Building3DModel: React.FC = () => {
     if (plCtx) {
       plCtx.fillStyle = '#000000';
       plCtx.fillRect(0, 0, 256, 256);
-      plCtx.fillStyle = '#38bdf8'; // Blue top snake
+      plCtx.fillStyle = '#38bdf8';
       plCtx.beginPath();
       plCtx.arc(128, 90, 60, 0, Math.PI * 2);
       plCtx.fill();
-      plCtx.fillStyle = '#facc15'; // Yellow bottom snake
+      plCtx.fillStyle = '#facc15';
       plCtx.beginPath();
       plCtx.arc(128, 166, 60, 0, Math.PI * 2);
       plCtx.fill();
@@ -702,9 +675,7 @@ export const Building3DModel: React.FC = () => {
     pyLogoMesh.rotation.y = Math.PI / 2;
     modelGroup.add(pyLogoMesh);
 
-    // ==========================================
-    // 5. Asset Library: Smart Meeting Table with Glowing World Map
-    // ==========================================
+    // 5. Asset Library Smart Table
     const confTableGeo = new THREE.BoxGeometry(3.2, 0.6, 2.2);
     const confTableMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.8, roughness: 0.2 });
     const confTable = new THREE.Mesh(confTableGeo, confTableMat);
@@ -735,9 +706,7 @@ export const Building3DModel: React.FC = () => {
     confDisplay.position.set(5.5, 0.91, 4.2);
     modelGroup.add(confDisplay);
 
-    // ==========================================
-    // 6. Glowing Data Pipeline Conduits Weaving Through Rooms
-    // ==========================================
+    // 6. Glowing Data Conduit Pipe
     const pipePoints = [
       new THREE.Vector3(-6, 0.2, -4.5),
       new THREE.Vector3(-4, 0.2, -1.0),
@@ -757,7 +726,7 @@ export const Building3DModel: React.FC = () => {
     const pipeMesh = new THREE.Mesh(pipeGeo, pipeMat);
     modelGroup.add(pipeMesh);
 
-    // 6. Interactive 360-Degree Cursor Drag & Zoom Controls
+    // 7. Interactive 360-Degree Cursor Drag & Zoom Controls
     const handlePointerDown = (clientX: number, clientY: number) => {
       isPointerDownRef.current = true;
       setIsDragging(true);
@@ -781,14 +750,12 @@ export const Building3DModel: React.FC = () => {
       touchDistanceStartRef.current = null;
     };
 
-    // Mouse Wheel Zoom
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       const zoomFactor = e.deltaY * 0.02;
       targetZoomDistanceRef.current = Math.max(12, Math.min(42, targetZoomDistanceRef.current + zoomFactor));
     };
 
-    // DOM Event Bindings
     const dom = renderer.domElement;
 
     const onMouseDown = (e: MouseEvent) => handlePointerDown(e.clientX, e.clientY);
@@ -829,7 +796,7 @@ export const Building3DModel: React.FC = () => {
     window.addEventListener('touchmove', onTouchMove, { passive: true });
     window.addEventListener('touchend', onTouchEnd);
 
-    // 7. Smooth Render & Projection Loop (Auto-Rotate Permanently OFF)
+    // 8. Smooth Render Loop (Auto-Rotate Permanently OFF)
     let animationFrameId: number;
     const clock = new THREE.Clock();
 
@@ -837,7 +804,6 @@ export const Building3DModel: React.FC = () => {
       animationFrameId = requestAnimationFrame(render);
       const elapsedTime = clock.getElapsedTime();
 
-      // Smooth damping for rotation & zoom
       rotationYRef.current += (targetRotationYRef.current - rotationYRef.current) * 0.08;
       rotationXRef.current += (targetRotationXRef.current - rotationXRef.current) * 0.08;
       zoomDistanceRef.current += (targetZoomDistanceRef.current - zoomDistanceRef.current) * 0.08;
@@ -852,18 +818,16 @@ export const Building3DModel: React.FC = () => {
         cameraRef.current.lookAt(0, 0, 0);
       }
 
-      // Pulse Core
       if (coreCube) {
         coreCube.rotation.x = elapsedTime * 0.8;
         coreCube.rotation.y = elapsedTime * 1.2;
       }
 
-      // Pulse Pipeline Conduit
       if (pipeMat) {
         pipeMat.emissiveIntensity = 0.8 + Math.sin(elapsedTime * 3.5) * 0.35;
       }
 
-      // Project 3D Room Hotspots to 2D Screen Space
+      // Project 3D Room Coordinates to 2D Screen Space
       if (container && cameraRef.current && modelGroupRef.current) {
         const w = container.clientWidth;
         const h = container.clientHeight;
@@ -893,7 +857,6 @@ export const Building3DModel: React.FC = () => {
 
     render();
 
-    // 8. Responsive Resize
     const onResize = () => {
       if (!container || !renderer || !camera) return;
       const w = container.clientWidth;
@@ -925,7 +888,6 @@ export const Building3DModel: React.FC = () => {
   const handleRoomClick = (room: RoomData) => {
     setSelectedRoom(room);
 
-    // Smooth programmatic scroll directly to target section
     const targetId = room.targetSection.replace('#', '');
     const element = document.getElementById(targetId);
     if (element) {
@@ -956,7 +918,6 @@ export const Building3DModel: React.FC = () => {
       <div 
         className="relative w-full aspect-[16/11] rounded-3xl overflow-hidden bg-slate-950/95 dark:bg-navy-950/98 border border-slate-200/90 dark:border-cyan-500/40 shadow-2xl dark:shadow-cyan-950/40 backdrop-blur-2xl transition-all duration-300 group/building"
       >
-        {/* Subtle Cyber Corner Brackets */}
         <span className="cyber-corner-tl" />
         <span className="cyber-corner-tr" />
         <span className="cyber-corner-bl" />
@@ -1019,7 +980,6 @@ export const Building3DModel: React.FC = () => {
                 handleRoomClick(room);
               }}
             >
-              {/* Pulsing 3D Hotspot Beacon */}
               <div className="relative flex items-center justify-center group/marker">
                 <span className={`animate-ping absolute inline-flex h-8 w-8 rounded-full opacity-75 ${
                   isSelected || isHovered ? 'bg-cyan-400' : 'bg-cyan-500/50'
@@ -1032,7 +992,6 @@ export const Building3DModel: React.FC = () => {
                   <room.icon className={`w-3.5 h-3.5 ${room.color}`} />
                 </span>
 
-                {/* Floating Room Tooltip on Hover */}
                 <AnimatePresence>
                   {isHovered && (
                     <motion.div
@@ -1083,7 +1042,6 @@ export const Building3DModel: React.FC = () => {
                   {selectedRoom.description}
                 </p>
 
-                {/* Metrics Pill Grid */}
                 <div className="flex flex-wrap items-center gap-2 pt-1">
                   {selectedRoom.metrics.map((m, idx) => (
                     <span key={idx} className="inline-flex items-center gap-1 text-[10px] font-mono bg-slate-900 px-2 py-0.5 rounded-md border border-slate-700/60 text-slate-300">
@@ -1126,7 +1084,7 @@ export const Building3DModel: React.FC = () => {
       <div className="mt-2.5 flex items-center justify-between w-full px-2 text-[11px] font-mono text-slate-500 dark:text-slate-400">
         <div className="flex items-center gap-1.5">
           <Move3D className="w-3.5 h-3.5 text-cyan-500" />
-          <span>Full 3D WebGL Model • Drag to rotate 360° • Scroll / Pinch to Zoom</span>
+          <span>Full 3D WebGL Studio • Drag to rotate 360° • Scroll / Pinch to Zoom</span>
         </div>
         <div className="flex items-center gap-1.5 text-cyan-600 dark:text-cyan-400">
           <Sparkles className="w-3 h-3" />
