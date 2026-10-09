@@ -17,10 +17,12 @@ import {
   Move3D
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 interface RoomData {
   id: string;
   name: string;
+  shortLabel: string;
   badge: string;
   category: string;
   description: string;
@@ -35,6 +37,7 @@ const ROOMS: RoomData[] = [
   {
     id: 'central-analytics',
     name: 'Central Command & Analytics Room',
+    shortLabel: 'Central Analytics',
     badge: 'Executive BI & Metrics',
     category: 'Central Analytics Dashboard',
     description: 'Curved ultra-wide command display monitoring enterprise revenue ($12.4M ARR), Net Revenue Retention (118.4%), and real-time business performance.',
@@ -51,6 +54,7 @@ const ROOMS: RoomData[] = [
   {
     id: 'powerbi-workspace',
     name: 'Power BI Reporting Studio',
+    shortLabel: 'Power BI Studio',
     badge: 'DAX & Semantic Modeling',
     category: 'Power BI & Microsoft Fabric',
     description: 'Specialized BI development room featuring interactive Power BI reports, Star Schema dimensional models, dynamic slicers, and executive matrix tables.',
@@ -67,6 +71,7 @@ const ROOMS: RoomData[] = [
   {
     id: 'data-pipeline',
     name: 'Data Pipeline & Database Vault',
+    shortLabel: 'Data Warehouse',
     badge: 'Lakehouse & ETL Systems',
     category: 'SQL, Fabric & Data Marts',
     description: 'Technical server room with cylindrical data storage, automated ETL extraction, and Microsoft Fabric Direct Lake pipelines powering instant dashboards.',
@@ -83,6 +88,7 @@ const ROOMS: RoomData[] = [
   {
     id: 'python-lab',
     name: 'Python Analytics & ML Lab',
+    shortLabel: 'Python Lab',
     badge: 'Python & Statistical Modeling',
     category: 'Pandas, NumPy & Machine Learning',
     description: 'Programming workstation dedicated to exploratory data analysis, predictive statistical models, customer churn forecasting, and script automation.',
@@ -99,6 +105,7 @@ const ROOMS: RoomData[] = [
   {
     id: 'asset-library',
     name: 'Visualization Asset Library',
+    shortLabel: 'Asset Library',
     badge: 'Design & Stakeholder Solutions',
     category: 'Smart Meeting & Strategy Room',
     description: 'Interactive smart conference table projecting global geographic intelligence, reusable dashboard design patterns, and cross-functional reporting.',
@@ -115,6 +122,7 @@ const ROOMS: RoomData[] = [
   {
     id: 'entrance-lobby',
     name: 'Executive Entrance & Contact HQ',
+    shortLabel: 'Entrance HQ',
     badge: 'Consulting & Direct Discovery',
     category: 'Zubair Anwar BI Headquarters',
     description: 'Architectural entrance providing direct communication channels, discovery call scheduling, and direct WhatsApp consultation access.',
@@ -131,10 +139,13 @@ const ROOMS: RoomData[] = [
 ];
 
 export const Building3DModel: React.FC = () => {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
+
   const mountRef = useRef<HTMLDivElement>(null);
   const [selectedRoom, setSelectedRoom] = useState<RoomData | null>(null);
   const [hoveredRoom, setHoveredRoom] = useState<RoomData | null>(null);
-  const [hotspotPositions, setHotspotPositions] = useState<{ [id: string]: { x: number; y: number; visible: boolean } }>({});
+  const [hotspotPositions, setHotspotPositions] = useState<{ [id: string]: { x: number; y: number; visible: boolean; opacity: number } }>({});
   const [isDragging, setIsDragging] = useState(false);
 
   // Three.js State Refs
@@ -143,7 +154,7 @@ export const Building3DModel: React.FC = () => {
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const modelGroupRef = useRef<THREE.Group | null>(null);
 
-  // Manual 360-Degree Cursor Drag & Zoom State (Auto-Rotate Permanently OFF)
+  // Manual 360-Degree Orbit & Zoom State (Auto-Rotate Permanently OFF)
   const rotationYRef = useRef(0.45);
   const rotationXRef = useRef(0.55);
   const targetRotationYRef = useRef(0.45);
@@ -171,7 +182,7 @@ export const Building3DModel: React.FC = () => {
     camera.lookAt(0, 0, 0);
     cameraRef.current = camera;
 
-    // 3. WebGL Renderer with High Quality
+    // 3. WebGL Renderer with Tone Mapping
     const renderer = new THREE.WebGLRenderer({ 
       antialias: true, 
       alpha: true,
@@ -182,34 +193,43 @@ export const Building3DModel: React.FC = () => {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.35;
+    renderer.toneMappingExposure = isLight ? 1.45 : 1.3;
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // 4. Studio Lighting System
-    const ambientLight = new THREE.AmbientLight(0xfff7ed, 1.8);
+    // 4. Lighting Rig (Dynamically Adapts to Light / Dark Mode)
+    const ambientLight = new THREE.AmbientLight(
+      isLight ? 0xffffff : 0xdbeafe, 
+      isLight ? 2.2 : 1.6
+    );
     scene.add(ambientLight);
 
-    const sunLight = new THREE.DirectionalLight(0xffeedd, 2.8);
+    const sunLight = new THREE.DirectionalLight(
+      isLight ? 0xffffff : 0xffeedd, 
+      isLight ? 3.0 : 2.5
+    );
     sunLight.position.set(16, 34, 22);
     sunLight.castShadow = true;
     sunLight.shadow.mapSize.width = 1024;
     sunLight.shadow.mapSize.height = 1024;
     scene.add(sunLight);
 
-    const warmCove = new THREE.DirectionalLight(0xfbbf24, 1.2);
-    warmCove.position.set(-12, 18, 12);
-    scene.add(warmCove);
+    const coveLight = new THREE.DirectionalLight(
+      isLight ? 0xf59e0b : 0xfbbf24, 
+      isLight ? 1.4 : 1.0
+    );
+    coveLight.position.set(-12, 18, 12);
+    scene.add(coveLight);
 
-    const cyanPoint = new THREE.PointLight(0x00f0ff, 4.5, 35);
+    const cyanPoint = new THREE.PointLight(0x00f0ff, isLight ? 3.2 : 4.5, 35);
     cyanPoint.position.set(0, 5, -1.5);
     scene.add(cyanPoint);
 
-    const bluePoint = new THREE.PointLight(0x3b82f6, 3.5, 25);
+    const bluePoint = new THREE.PointLight(0x3b82f6, isLight ? 2.8 : 3.5, 25);
     bluePoint.position.set(-5.8, 4, -4.5);
     scene.add(bluePoint);
 
-    const amberPoint = new THREE.PointLight(0xf59e0b, 3.8, 25);
+    const amberPoint = new THREE.PointLight(0xf59e0b, isLight ? 3.0 : 3.8, 25);
     amberPoint.position.set(5.8, 4, -4.5);
     scene.add(amberPoint);
 
@@ -218,12 +238,12 @@ export const Building3DModel: React.FC = () => {
     scene.add(modelGroup);
     modelGroupRef.current = modelGroup;
 
-    // Foundation Base
+    // Foundation Base (Dark Titanium or Light Slate)
     const baseGeo = new THREE.BoxGeometry(18, 0.8, 16);
     const baseMat = new THREE.MeshStandardMaterial({ 
-      color: 0x181e2b, 
+      color: isLight ? 0xe2e8f0 : 0x181e2b, 
       roughness: 0.35, 
-      metalness: 0.7 
+      metalness: isLight ? 0.3 : 0.7 
     });
     const baseMesh = new THREE.Mesh(baseGeo, baseMat);
     baseMesh.position.y = -0.4;
@@ -232,33 +252,34 @@ export const Building3DModel: React.FC = () => {
 
     // Glowing Neon Base Trim Ring
     const trimGeo = new THREE.BoxGeometry(18.25, 0.12, 16.25);
-    const trimMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
+    const trimMat = new THREE.MeshBasicMaterial({ color: isLight ? 0x0284c7 : 0x00f0ff });
     const trimMesh = new THREE.Mesh(trimGeo, trimMat);
     trimMesh.position.y = 0.01;
     modelGroup.add(trimMesh);
 
-    // Detailed Multi-Zone Architectural Floor
+    // Detailed Multi-Zone Architectural Floor (Warm Wood, Marble, & High-Tech Grid)
     const floorCanvas = document.createElement('canvas');
     floorCanvas.width = 1024;
     floorCanvas.height = 1024;
     const fCtx = floorCanvas.getContext('2d');
     if (fCtx) {
-      fCtx.fillStyle = '#111827';
+      // Base floor
+      fCtx.fillStyle = isLight ? '#f1f5f9' : '#111827';
       fCtx.fillRect(0, 0, 1024, 1024);
 
-      // Central Command Room Ring
-      fCtx.fillStyle = '#0b1120';
+      // Central Command Room Ring (Polished marble)
+      fCtx.fillStyle = isLight ? '#e2e8f0' : '#0b1120';
       fCtx.beginPath();
       fCtx.arc(512, 420, 220, 0, Math.PI * 2);
       fCtx.fill();
-      fCtx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+      fCtx.strokeStyle = isLight ? 'rgba(2, 132, 199, 0.5)' : 'rgba(0, 240, 255, 0.4)';
       fCtx.lineWidth = 6;
       fCtx.stroke();
 
-      // Python Lab (Wood parquet)
-      fCtx.fillStyle = '#451a03';
+      // Python Lab (Warm parquet wood floor)
+      fCtx.fillStyle = isLight ? '#78350f' : '#451a03';
       fCtx.fillRect(80, 540, 360, 400);
-      fCtx.strokeStyle = '#78350f';
+      fCtx.strokeStyle = isLight ? '#92400e' : '#78350f';
       fCtx.lineWidth = 2;
       for (let x = 80; x <= 440; x += 40) {
         fCtx.beginPath();
@@ -267,17 +288,17 @@ export const Building3DModel: React.FC = () => {
         fCtx.stroke();
       }
 
-      // Asset Library Room (Slate warm carpet)
-      fCtx.fillStyle = '#1e293b';
+      // Asset Library Meeting Room (Slate warm carpet)
+      fCtx.fillStyle = isLight ? '#cbd5e1' : '#1e293b';
       fCtx.fillRect(580, 540, 360, 400);
-      fCtx.strokeStyle = 'rgba(139, 92, 246, 0.3)';
+      fCtx.strokeStyle = isLight ? 'rgba(124, 58, 237, 0.4)' : 'rgba(139, 92, 246, 0.3)';
       fCtx.lineWidth = 4;
       fCtx.strokeRect(600, 560, 320, 360);
 
-      // Database Server Room (High-tech server tiles)
-      fCtx.fillStyle = '#030712';
+      // Database Server Room (High-tech grid floor)
+      fCtx.fillStyle = isLight ? '#0f172a' : '#030712';
       fCtx.fillRect(80, 80, 360, 400);
-      fCtx.strokeStyle = 'rgba(59, 130, 246, 0.3)';
+      fCtx.strokeStyle = 'rgba(59, 130, 246, 0.4)';
       fCtx.lineWidth = 2;
       for (let i = 80; i <= 440; i += 30) {
         fCtx.beginPath();
@@ -291,14 +312,14 @@ export const Building3DModel: React.FC = () => {
       }
 
       // Power BI Room (Modern tile)
-      fCtx.fillStyle = '#1f2937';
+      fCtx.fillStyle = isLight ? '#e2e8f0' : '#1f2937';
       fCtx.fillRect(580, 80, 360, 400);
-      fCtx.strokeStyle = 'rgba(245, 158, 11, 0.3)';
+      fCtx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
       fCtx.lineWidth = 4;
       fCtx.strokeRect(600, 100, 320, 360);
 
       // Entrance Walkway Steps
-      fCtx.fillStyle = '#cbd5e1';
+      fCtx.fillStyle = isLight ? '#94a3b8' : '#cbd5e1';
       fCtx.fillRect(440, 880, 144, 120);
     }
     const floorTexture = new THREE.CanvasTexture(floorCanvas);
@@ -314,15 +335,15 @@ export const Building3DModel: React.FC = () => {
     floorMesh.receiveShadow = true;
     modelGroup.add(floorMesh);
 
-    // Architectural Walls with Warm Wood & LED Cove Trim
+    // Architectural Cutaway Walls
     const wallMat = new THREE.MeshStandardMaterial({
-      color: 0x222a38,
+      color: isLight ? 0x334155 : 0x222a38,
       roughness: 0.35,
       metalness: 0.4,
     });
 
     const warmWoodMat = new THREE.MeshStandardMaterial({
-      color: 0x5c2b0d,
+      color: isLight ? 0x78350f : 0x5c2b0d,
       roughness: 0.45,
       metalness: 0.2,
     });
@@ -489,7 +510,7 @@ export const Building3DModel: React.FC = () => {
     modelGroup.add(consoleDesk);
 
     const underRingGeo = new THREE.TorusGeometry(2.55, 0.06, 12, 32);
-    const underRingMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
+    const underRingMat = new THREE.MeshBasicMaterial({ color: isLight ? 0x0284c7 : 0x00f0ff });
     const underRing = new THREE.Mesh(underRingGeo, underRingMat);
     underRing.rotation.x = Math.PI / 2;
     underRing.position.set(0, 0.1, -1.2);
@@ -796,7 +817,7 @@ export const Building3DModel: React.FC = () => {
     window.addEventListener('touchmove', onTouchMove, { passive: true });
     window.addEventListener('touchend', onTouchEnd);
 
-    // 8. Smooth Render Loop (Auto-Rotate Permanently OFF)
+    // 8. Smooth Render Loop (Auto-Rotate Permanently OFF + Accurate Occlusion Culling)
     let animationFrameId: number;
     const clock = new THREE.Clock();
 
@@ -827,25 +848,40 @@ export const Building3DModel: React.FC = () => {
         pipeMat.emissiveIntensity = 0.8 + Math.sin(elapsedTime * 3.5) * 0.35;
       }
 
-      // Project 3D Room Coordinates to 2D Screen Space
+      // Project 3D Room Coordinates & Perform Accurate 3D Occlusion Checks
       if (container && cameraRef.current && modelGroupRef.current) {
         const w = container.clientWidth;
         const h = container.clientHeight;
-        const newPositions: { [id: string]: { x: number; y: number; visible: boolean } } = {};
+        const newPositions: { [id: string]: { x: number; y: number; visible: boolean; opacity: number } } = {};
+
+        const cameraDir = new THREE.Vector3();
+        cameraRef.current.getWorldDirection(cameraDir);
 
         ROOMS.forEach((room) => {
           const worldPoint = room.worldPos.clone();
           worldPoint.applyMatrix4(modelGroupRef.current!.matrixWorld);
+
+          // Vector from camera to worldPoint
+          const toCamera = cameraRef.current!.position.clone().sub(worldPoint).normalize();
+          
+          // Check if object is facing camera vs on the back side of building
+          const isFacingFront = toCamera.z > -0.25;
+
           worldPoint.project(cameraRef.current!);
 
           const isVisible = worldPoint.z < 1.0;
           const screenX = ((worldPoint.x + 1) * w) / 2;
           const screenY = ((-worldPoint.y + 1) * h) / 2;
 
+          // Fade out smoothly if close to edges or occluded on back
+          const isInsideFrame = screenX > 35 && screenX < w - 35 && screenY > 35 && screenY < h - 35;
+          const opacity = (isFacingFront && isVisible && isInsideFrame) ? 1.0 : 0.0;
+
           newPositions[room.id] = {
             x: screenX,
             y: screenY,
-            visible: isVisible && screenX > 20 && screenX < w - 20 && screenY > 20 && screenY < h - 20,
+            visible: isVisible && isInsideFrame && isFacingFront,
+            opacity: opacity,
           };
         });
 
@@ -883,7 +919,7 @@ export const Building3DModel: React.FC = () => {
       }
       renderer.dispose();
     };
-  }, []);
+  }, [isLight]);
 
   const handleRoomClick = (room: RoomData) => {
     setSelectedRoom(room);
@@ -914,9 +950,13 @@ export const Building3DModel: React.FC = () => {
   return (
     <div className="relative w-full max-w-2xl lg:max-w-none flex flex-col items-center select-none">
       
-      {/* 3D WebGL Model Canvas Frame */}
+      {/* 3D WebGL Model Canvas Frame (100% Light & Dark Mode Adaptive) */}
       <div 
-        className="relative w-full aspect-[16/11] rounded-3xl overflow-hidden bg-slate-950/95 dark:bg-navy-950/98 border border-slate-200/90 dark:border-cyan-500/40 shadow-2xl dark:shadow-cyan-950/40 backdrop-blur-2xl transition-all duration-300 group/building"
+        className={`relative w-full aspect-[16/11] rounded-3xl overflow-hidden shadow-2xl transition-colors duration-500 group/building ${
+          isLight 
+            ? 'bg-slate-50/95 border border-slate-300 shadow-slate-200/80' 
+            : 'bg-slate-950/95 dark:bg-navy-950/98 border border-slate-700/80 dark:border-cyan-500/40 shadow-cyan-950/40'
+        }`}
       >
         <span className="cyber-corner-tl" />
         <span className="cyber-corner-tr" />
@@ -935,7 +975,11 @@ export const Building3DModel: React.FC = () => {
           <button
             type="button"
             onClick={() => adjustZoom(-3)}
-            className="p-2 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-cyan-400 shadow-md backdrop-blur-md transition-all cursor-pointer hover:scale-105 active:scale-95"
+            className={`p-2 rounded-xl border shadow-md backdrop-blur-md transition-all cursor-pointer hover:scale-105 active:scale-95 ${
+              isLight 
+                ? 'bg-white/95 border-slate-300 text-slate-800 hover:text-cyan-600' 
+                : 'bg-slate-900/90 border-slate-700 text-slate-300 hover:text-cyan-400'
+            }`}
             title="Zoom In"
           >
             <ZoomIn className="w-3.5 h-3.5" />
@@ -943,7 +987,11 @@ export const Building3DModel: React.FC = () => {
           <button
             type="button"
             onClick={() => adjustZoom(3)}
-            className="p-2 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-cyan-400 shadow-md backdrop-blur-md transition-all cursor-pointer hover:scale-105 active:scale-95"
+            className={`p-2 rounded-xl border shadow-md backdrop-blur-md transition-all cursor-pointer hover:scale-105 active:scale-95 ${
+              isLight 
+                ? 'bg-white/95 border-slate-300 text-slate-800 hover:text-cyan-600' 
+                : 'bg-slate-900/90 border-slate-700 text-slate-300 hover:text-cyan-400'
+            }`}
             title="Zoom Out"
           >
             <ZoomOut className="w-3.5 h-3.5" />
@@ -951,17 +999,21 @@ export const Building3DModel: React.FC = () => {
           <button
             type="button"
             onClick={resetView}
-            className="p-2 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-cyan-400 shadow-md backdrop-blur-md transition-all cursor-pointer hover:scale-105 active:scale-95"
+            className={`p-2 rounded-xl border shadow-md backdrop-blur-md transition-all cursor-pointer hover:scale-105 active:scale-95 ${
+              isLight 
+                ? 'bg-white/95 border-slate-300 text-slate-800 hover:text-cyan-600' 
+                : 'bg-slate-900/90 border-slate-700 text-slate-300 hover:text-cyan-400'
+            }`}
             title="Reset 3D Angle"
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        {/* 3D Dynamic Interactive Room Hotspot Badges (Positioned in 3D Space) */}
+        {/* 3D Pinned Room Hotspots with Names (With Strict 3D Occlusion Culling) */}
         {ROOMS.map((room) => {
           const pos = hotspotPositions[room.id];
-          if (!pos || !pos.visible) return null;
+          if (!pos || !pos.visible || pos.opacity <= 0) return null;
 
           const isSelected = selectedRoom?.id === room.id;
           const isHovered = hoveredRoom?.id === room.id;
@@ -971,8 +1023,9 @@ export const Building3DModel: React.FC = () => {
               key={room.id}
               style={{
                 transform: `translate3d(${pos.x}px, ${pos.y}px, 0px) translate(-50%, -50%)`,
+                opacity: pos.opacity,
               }}
-              className="absolute top-0 left-0 z-20 cursor-pointer pointer-events-auto"
+              className="absolute top-0 left-0 z-20 cursor-pointer pointer-events-auto transition-opacity duration-150"
               onMouseEnter={() => setHoveredRoom(room)}
               onMouseLeave={() => setHoveredRoom(null)}
               onClick={(e) => {
@@ -980,37 +1033,34 @@ export const Building3DModel: React.FC = () => {
                 handleRoomClick(room);
               }}
             >
-              <div className="relative flex items-center justify-center group/marker">
-                <span className={`animate-ping absolute inline-flex h-8 w-8 rounded-full opacity-75 ${
-                  isSelected || isHovered ? 'bg-cyan-400' : 'bg-cyan-500/50'
-                }`} />
-                <span className={`relative inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-950/90 dark:bg-navy-950 border-2 transition-all duration-200 shadow-xl ${
-                  isSelected || isHovered
-                    ? 'border-cyan-400 scale-125 shadow-cyan-400/60 ring-2 ring-cyan-400/40'
-                    : 'border-cyan-500/80 hover:scale-110 shadow-cyan-500/30'
-                }`}>
-                  <room.icon className={`w-3.5 h-3.5 ${room.color}`} />
+              {/* Hotspot Beacon with Visible Room Name Tag */}
+              <div className="flex items-center gap-1.5 group/marker">
+                
+                {/* Pulsing Beacon Circle */}
+                <div className="relative flex items-center justify-center shrink-0">
+                  <span className={`animate-ping absolute inline-flex h-7 w-7 rounded-full opacity-75 ${
+                    isSelected || isHovered ? 'bg-cyan-400' : 'bg-cyan-500/50'
+                  }`} />
+                  <span className={`relative inline-flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 transition-all duration-200 shadow-xl ${
+                    isLight ? 'bg-white' : 'bg-slate-950/90 dark:bg-navy-950'
+                  } ${
+                    isSelected || isHovered
+                      ? 'border-cyan-400 scale-125 shadow-cyan-400/60 ring-2 ring-cyan-400/40'
+                      : 'border-cyan-500/80 hover:scale-110 shadow-cyan-500/30'
+                  }`}>
+                    <room.icon className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${room.color}`} />
+                  </span>
+                </div>
+
+                {/* Visible Room Name Pill */}
+                <span className={`px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-mono font-bold tracking-tight shadow-md backdrop-blur-md border transition-all ${
+                  isLight
+                    ? 'bg-white/95 text-slate-900 border-slate-300'
+                    : 'bg-slate-950/90 text-white border-cyan-500/40'
+                } ${isSelected || isHovered ? 'ring-1 ring-cyan-400 scale-105' : ''}`}>
+                  {room.shortLabel}
                 </span>
 
-                <AnimatePresence>
-                  {isHovered && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8, scale: 0.9 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 8, scale: 0.9 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-xl bg-slate-950/95 dark:bg-navy-950/98 border border-cyan-500/50 backdrop-blur-md shadow-2xl whitespace-nowrap z-30 pointer-events-none"
-                    >
-                      <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold text-cyan-400">
-                        <span>{room.name}</span>
-                        <ArrowRight className="w-3 h-3" />
-                      </div>
-                      <div className="text-[10px] text-slate-300 font-mono">
-                        Click to open {room.badge}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             </div>
           );
@@ -1024,30 +1074,42 @@ export const Building3DModel: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="absolute inset-x-3 bottom-3 p-3.5 sm:p-4 rounded-2xl bg-slate-950/95 dark:bg-navy-950/98 border border-cyan-500/50 backdrop-blur-2xl shadow-2xl z-30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+              className={`absolute inset-x-3 bottom-3 p-3.5 sm:p-4 rounded-2xl border backdrop-blur-2xl shadow-2xl z-30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 ${
+                isLight 
+                  ? 'bg-white/98 border-slate-300 text-slate-900' 
+                  : 'bg-slate-950/98 dark:bg-navy-950/98 border-cyan-500/50 text-white'
+              }`}
             >
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase bg-cyan-500/20 text-cyan-400 border border-cyan-500/40">
+                  <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase border ${
+                    isLight 
+                      ? 'bg-cyan-100 text-cyan-800 border-cyan-300' 
+                      : 'bg-cyan-500/20 text-cyan-400 border-cyan-500/40'
+                  }`}>
                     {selectedRoom.badge}
                   </span>
-                  <span className="text-xs font-mono text-slate-400">
+                  <span className={`text-xs font-mono ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
                     {selectedRoom.category}
                   </span>
                 </div>
-                <h4 className="text-sm sm:text-base font-extrabold text-white">
+                <h4 className={`text-sm sm:text-base font-extrabold ${isLight ? 'text-slate-900' : 'text-white'}`}>
                   {selectedRoom.name}
                 </h4>
-                <p className="text-xs text-slate-300 leading-snug max-w-md">
+                <p className={`text-xs leading-snug max-w-md ${isLight ? 'text-slate-700' : 'text-slate-300'}`}>
                   {selectedRoom.description}
                 </p>
 
                 <div className="flex flex-wrap items-center gap-2 pt-1">
                   {selectedRoom.metrics.map((m, idx) => (
-                    <span key={idx} className="inline-flex items-center gap-1 text-[10px] font-mono bg-slate-900 px-2 py-0.5 rounded-md border border-slate-700/60 text-slate-300">
-                      <CheckCircle2 className="w-2.5 h-2.5 text-cyan-400" />
-                      <span className="text-slate-400">{m.label}:</span>
-                      <strong className="text-cyan-400">{m.value}</strong>
+                    <span key={idx} className={`inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-md border ${
+                      isLight 
+                        ? 'bg-slate-100 border-slate-300 text-slate-800' 
+                        : 'bg-slate-900 border-slate-700/60 text-slate-300'
+                    }`}>
+                      <CheckCircle2 className="w-2.5 h-2.5 text-cyan-500" />
+                      <span className={isLight ? 'text-slate-600' : 'text-slate-400'}>{m.label}:</span>
+                      <strong className={isLight ? 'text-cyan-700' : 'text-cyan-400'}>{m.value}</strong>
                     </span>
                   ))}
                 </div>
@@ -1069,7 +1131,11 @@ export const Building3DModel: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setSelectedRoom(null)}
-                  className="p-2 rounded-xl text-slate-400 hover:text-white bg-slate-900 border border-slate-700/80 transition-colors cursor-pointer"
+                  className={`p-2 rounded-xl border transition-colors cursor-pointer ${
+                    isLight 
+                      ? 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700' 
+                      : 'bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-400 hover:text-white'
+                  }`}
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -1081,7 +1147,9 @@ export const Building3DModel: React.FC = () => {
       </div>
 
       {/* Clean Interactive Hint Caption */}
-      <div className="mt-2.5 flex items-center justify-between w-full px-2 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+      <div className={`mt-2.5 flex items-center justify-between w-full px-2 text-[11px] font-mono ${
+        isLight ? 'text-slate-600' : 'text-slate-400'
+      }`}>
         <div className="flex items-center gap-1.5">
           <Move3D className="w-3.5 h-3.5 text-cyan-500" />
           <span>Full 3D WebGL Studio • Drag to rotate 360° • Scroll / Pinch to Zoom</span>
