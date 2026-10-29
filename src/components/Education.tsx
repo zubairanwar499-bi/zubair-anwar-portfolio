@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 export const Education: React.FC = () => {
   return (
-    <section id="education" className="py-24 bg-white dark:bg-navy-950 relative overflow-hidden">
+    <section id="education" className="py-24 bg-white/70 dark:bg-navy-950/40 backdrop-blur-[2px] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

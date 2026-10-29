@@ -15,12 +15,16 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { CursorGlow } from './components/CursorGlow';
 import { MoodDock } from './components/MoodDock';
+import { FluidCursor } from './components/FluidCursor';
 
 export const App: React.FC = () => {
   return (
     <ThemeProvider>
-      <div className="relative min-h-screen bg-slate-50 dark:bg-navy-950 text-slate-900 dark:text-slate-100 transition-colors duration-500 font-sans selection:bg-cyan-500 selection:text-white">
+      <div className="relative min-h-screen bg-slate-50 dark:bg-[#08070f] text-slate-900 dark:text-slate-100 transition-colors duration-500 font-sans selection:bg-cyan-500 selection:text-white">
         
+        {/* Full-Screen WebGL 2D Navier-Stokes Fluid & Smoke Simulation Background */}
+        <FluidCursor />
+
         {/* Dynamic High-Glow Rainbow Cursor Follower */}
         <CursorGlow />
 
