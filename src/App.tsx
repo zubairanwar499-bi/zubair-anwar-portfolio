@@ -13,7 +13,6 @@ import { Credibility } from './components/Credibility';
 import { Education } from './components/Education';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
-import { CursorGlow } from './components/CursorGlow';
 import { MoodDock } from './components/MoodDock';
 import { FluidCursor } from './components/FluidCursor';
 
@@ -24,9 +23,6 @@ export const App: React.FC = () => {
         
         {/* Full-Screen WebGL 2D Navier-Stokes Fluid & Smoke Simulation Background */}
         <FluidCursor />
-
-        {/* Dynamic High-Glow Rainbow Cursor Follower */}
-        <CursorGlow />
 
         {/* Sticky Top Navigation */}
         <Navbar />
