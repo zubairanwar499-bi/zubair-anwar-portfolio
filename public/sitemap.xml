@@ -1,9 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://zubair-anwar-portfolio.vercel.app/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+
+    <video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/mfdMa8aP-vg/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>SQL Full Course for Beginners: Learn Database &amp; Queries Step-by-Step | The Data Layer</video:title>
+      <video:description>Phase 1 of the Data Analyst Roadmap 2026 by Zubair Anwar (THE DATA LAYER). Learn relational database architecture, SELECT, WHERE, GROUP BY, and analytical SQL queries from scratch.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/mfdMa8aP-vg</video:player_loc>
+      <video:publication_date>2026-07-15T04:25:13+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>Zubair Anwar</video:tag>
+      <video:tag>THE DATA LAYER</video:tag>
+      <video:tag>Data Analyst Roadmap 2026</video:tag>
+      <video:tag>SQL Tutorial</video:tag>
+    </video:video>
+
+    <video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/_NLGBrwtXIY/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>Excel for Data Analysts: Essential Skills, Formulas &amp; Roadmap | The Data Layer</video:title>
+      <video:description>Essential Excel formulas, XLOOKUP vs VLOOKUP, Pivot Tables, and data cleaning workflows from THE DATA LAYER Data Analyst Roadmap 2026 by Zubair Anwar.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/_NLGBrwtXIY</video:player_loc>
+      <video:publication_date>2026-08-01T04:50:29+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>Excel for Data Analysts</video:tag>
+      <video:tag>Data Analyst Roadmap 2026</video:tag>
+      <video:tag>The Data Layer</video:tag>
+    </video:video>
+
+    <video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/Yp8pkyLYyew/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>Power BI Row Level Security (RLS) Tutorial: Static &amp; Dynamic | The Data Layer</video:title>
+      <video:description>Enterprise Power BI security tutorial covering Static and Dynamic Row-Level Security (RLS), DAX UserPrincipalName filtering, and Star Schema architecture by Zubair Anwar.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/Yp8pkyLYyew</video:player_loc>
+      <video:publication_date>2026-07-18T12:00:00+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>Power BI</video:tag>
+      <video:tag>Row-Level Security</video:tag>
+      <video:tag>DAX</video:tag>
+      <video:tag>The Data Layer</video:tag>
+    </video:video>
+
+    <video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/nzu25aXKs7E/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>AI Speaks, Microsoft Fabric Translates! Power BI Copilot | The Data Layer</video:title>
+      <video:description>Discover how Microsoft Fabric and AI Copilot translate natural speech into semantic data models, DAX measures, and Power BI dashboards by Zubair Anwar (@The-Data-Layer).</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/nzu25aXKs7E</video:player_loc>
+      <video:publication_date>2026-11-06T16:00:57+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>Microsoft Fabric</video:tag>
+      <video:tag>Power BI Copilot</video:tag>
+      <video:tag>The Data Layer</video:tag>
+    </video:video>
   </url>
 </urlset>

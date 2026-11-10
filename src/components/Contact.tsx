@@ -210,6 +210,31 @@ export const Contact: React.FC = () => {
                 <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-cyan-500 group-hover:translate-x-0.5 transition-all" />
               </a>
 
+              {/* YouTube — THE DATA LAYER */}
+              {personalInfo.youtube && (
+                <a
+                  href={personalInfo.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3.5 rounded-2xl bg-slate-50 dark:bg-navy-850 border border-slate-200/70 dark:border-navy-800 flex items-center justify-between gap-3 hover:border-lime-400/60 transition-colors group"
+                >
+                  <div className="flex items-center gap-3 overflow-hidden">
+                    <div className="p-2.5 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 shrink-0 group-hover:scale-110 transition-transform">
+                      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-mono text-slate-400 block">YouTube Channel (THE DATA LAYER)</span>
+                      <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-cyan-500 truncate block">
+                        youtube.com/@The-Data-Layer
+                      </span>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-cyan-500 group-hover:translate-x-0.5 transition-all" />
+                </a>
+              )}
+
               {/* GitHub */}
               <a
                 href={personalInfo.github}

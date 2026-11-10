@@ -84,7 +84,9 @@ export const DashboardMock: React.FC<DashboardMockProps> = ({
         <div className={`relative bg-slate-950 overflow-hidden ${compact ? 'h-56 sm:h-64' : 'max-h-[500px]'}`}>
           <img
             src={image}
-            alt={project.title}
+            alt={`${project.title} — Interactive Power BI Dashboard by Zubair Anwar`}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover object-top hover:scale-[1.02] transition-transform duration-500 cursor-pointer"
             onClick={() => {
               if (onExpand) onExpand();

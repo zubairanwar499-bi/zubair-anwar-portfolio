@@ -1,4 +1,35 @@
+# Standard Search Engine Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# AI & Generative Search Crawlers (GEO Optimization)
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Global Rule
 User-agent: *
 Allow: /
 
 Sitemap: https://zubair-anwar-portfolio.vercel.app/sitemap.xml
+# LLMs Context: https://zubair-anwar-portfolio.vercel.app/llms.txt

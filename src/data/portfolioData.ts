@@ -121,6 +121,10 @@ export interface PortfolioData {
     linkedin: string;
     linkedinDisplay: string;
     facebook?: string;
+    youtube?: string;
+    youtubeSubscribe?: string;
+    youtubeChannelId?: string;
+    youtubeBrand?: string;
     github: string;
     avatarUrl: string;
     location: string;
@@ -141,7 +145,7 @@ export interface PortfolioData {
 export const portfolioData: PortfolioData = {
   personalInfo: {
     name: "Zubair Anwar",
-    title: "Data Analyst & Business Intelligence Specialist",
+    title: "Data Analytics Architect, BI Specialist & Founder of THE DATA LAYER",
     headline: "Turning Data Into Stories That Drive Smarter Business Decisions.",
     subtitle: "Passionate Data Analyst with hands-on experience turning raw data into interactive dashboards, predictive models, and actionable insights. Skilled in Power BI, Advanced Excel, SQL, and Python.",
     positioningStatement: "I specialize in transforming complex multi-source data into clear, interactive dashboards and automated reporting systems that fuel growth, efficiency, and smarter decisions.",
@@ -153,11 +157,15 @@ export const portfolioData: PortfolioData = {
     linkedin: "https://www.linkedin.com/in/zubairanwar-/",
     linkedinDisplay: "linkedin.com/in/zubairanwar-",
     facebook: "https://www.facebook.com/share/1JXbadDrVr/",
+    youtube: "https://www.youtube.com/@The-Data-Layer",
+    youtubeSubscribe: "https://www.youtube.com/@The-Data-Layer?sub_confirmation=1",
+    youtubeChannelId: "UCJh8RFSz1yAbSGXStJEp5SQ",
+    youtubeBrand: "THE DATA LAYER",
     github: "https://github.com/zubairanwar499-bi",
     avatarUrl: "/assets/profile.png",
     location: "Islamabad, Pakistan",
     availability: "Available for Data Analyst roles, freelance BI projects & consulting",
-    coreTools: ["Power BI", "Advanced Excel", "SQL", "Python", "DAX", "Power Query", "AI Tools", "Data Storytelling"],
+    coreTools: ["Microsoft Fabric", "Power BI", "DAX & RLS", "SQL", "Python", "Pandas & NumPy", "Power Query", "Three.js / WebGL"],
   },
 
   stats: [

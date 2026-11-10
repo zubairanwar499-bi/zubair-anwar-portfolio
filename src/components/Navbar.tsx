@@ -14,6 +14,7 @@ export const Navbar: React.FC = () => {
     { name: 'Home', href: '#home', id: 'home' },
     { name: 'About', href: '#about', id: 'about' },
     { name: 'Projects', href: '#projects', id: 'projects' },
+    { name: 'Data Layer', href: '#data-layer', id: 'data-layer' },
     { name: 'Skills', href: '#skills', id: 'skills' },
     { name: 'Experience', href: '#experience', id: 'experience' },
     { name: 'Services', href: '#services', id: 'services' },
@@ -51,7 +52,7 @@ export const Navbar: React.FC = () => {
       }
     );
 
-    const sectionIds = ['home', 'about', 'projects', 'skills', 'experience', 'services', 'credibility', 'contact'];
+    const sectionIds = ['home', 'about', 'projects', 'data-layer', 'skills', 'experience', 'services', 'credibility', 'contact'];
     sectionIds.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
@@ -97,7 +98,10 @@ export const Navbar: React.FC = () => {
             <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden ring-2 ring-cyan-500/50 shadow-md shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-200 shrink-0">
               <img
                 src={portfolioData.personalInfo.avatarUrl || '/assets/profile.png'}
-                alt={portfolioData.personalInfo.name}
+                alt={`${portfolioData.personalInfo.name} — Data Analyst & Power BI Architect`}
+                width={40}
+                height={40}
+                decoding="async"
                 loading="eager"
                 className="w-full h-full object-cover object-top"
               />

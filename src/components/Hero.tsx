@@ -49,6 +49,9 @@ export const Hero: React.FC = () => {
               transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-[1.2]"
             >
+              <span className="block text-xs sm:text-sm font-mono font-semibold text-cyan-600 dark:text-cyan-400 mb-1.5 tracking-wide">
+                Zubair Anwar — Data Analyst, BI &amp; Fabric Architect
+              </span>
               Turning <span className="mood-gradient-text">Data</span> Into Decisions That Drive Business.
             </motion.h1>
 

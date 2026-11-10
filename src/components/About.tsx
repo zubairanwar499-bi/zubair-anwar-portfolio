@@ -79,7 +79,11 @@ export const About: React.FC = () => {
                 <div className="w-full h-full rounded-[22px] overflow-hidden bg-slate-900">
                   <img
                     src={personalInfo.avatarUrl || '/assets/profile.png'}
-                    alt={personalInfo.name}
+                    alt={`${personalInfo.name} — Founder of THE DATA LAYER & Microsoft Fabric Architect`}
+                    width={176}
+                    height={176}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
                   />
                 </div>
@@ -116,7 +120,7 @@ export const About: React.FC = () => {
                   <span className="font-medium truncate">{personalInfo.email}</span>
                   <ArrowRight className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
                 </motion.a>
-                <motion.a
+                                <motion.a
                   whileHover={{ scale: 1.02, x: 2 }}
                   whileTap={{ scale: 0.98 }}
                   href={personalInfo.linkedin}
@@ -127,6 +131,19 @@ export const About: React.FC = () => {
                   <span className="font-medium truncate">LinkedIn Profile</span>
                   <ArrowRight className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
                 </motion.a>
+                {personalInfo.youtube && (
+                  <motion.a
+                    whileHover={{ scale: 1.02, x: 2 }}
+                    whileTap={{ scale: 0.98 }}
+                    href={personalInfo.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-navy-850 hover:bg-slate-100 dark:hover:bg-navy-800 transition-colors text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-navy-750 shadow-xs"
+                  >
+                    <span className="font-medium truncate">YouTube: @The-Data-Layer</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-lime-500 shrink-0" />
+                  </motion.a>
+                )}
               </div>
 
             </div>
